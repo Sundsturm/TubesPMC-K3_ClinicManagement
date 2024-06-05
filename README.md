@@ -1,5 +1,5 @@
 # TubesPMC-K3_ClinicManagement
-**Mata Kuliah Pemecahan Masalah dengan C (EL2008)**
+**Mata Kuliah Pemecahan Masalah dengan C (EL2008)**\n
 _Tugas Besar: Clinic Management_
 
 Kelas 02 - Kelompok 3:
