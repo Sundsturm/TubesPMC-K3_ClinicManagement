@@ -40,6 +40,6 @@ void assignTanggal(char* str_t, Date* tanggal_t);
 void readCSVPasien(char* file, char* del, Pasien** list_pt);
 void readCSVDiagnosis(char* file, char* del, Diagnosis** list_dx);
 void printPasien(Pasien *list_pt);
-void print(Pasien *list_pt);
+void printDiagnosis(Diagnosis *list_dx);
 
 #endif

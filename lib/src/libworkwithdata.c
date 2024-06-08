@@ -258,3 +258,37 @@ void readCSVDiagnosis(char* file, char* del, Diagnosis** list_dx) {
 	/* Menutup file setelah pembacaan*/
 	fclose(file);
 }
+
+void printPasien(Pasien *list_pt){
+	Pasien *temp = list_pt;
+	if (temp == NULL){
+		printf("Data kosong!\n");
+		return;
+	}
+	while(temp != NULL){
+		printf("%d, %s, %s, %s, %s, %d %s %d, %d, %s, %s\n",
+		temp->nomor, temp->nama_lengkap, temp->alamat, temp->kota, temp->tempat_lahir,
+		temp->tanggal_lahir.hari, temp->tanggal_lahir.bulan, temp->tanggal_lahir.tahun,
+		temp->umur, temp->bpjs, temp->id_pasien);
+		temp = temp->next;
+	}
+	printf("\n");
+}
+
+void printDiagnosis(Diagnosis *list_dx){
+	Diagnosis *temp = list_dx;
+	if (temp == NULL){
+		printf("Data kosong!\n");
+		return;
+	}
+	while(temp != NULL){
+		printf("%d, %d %s %d, %s, %s, %s, %d %s %d, %d\n",
+		temp->nomor,
+		temp->tanggal_cek.hari, temp->tanggal_cek.bulan, temp->tanggal_cek.tahun,
+		temp->id_pasien, temp->diagnosis, temp->tindakan,
+		temp->tanggal_kontrol.hari, temp->tanggal_kontrol.bulan, temp->tanggal_kontrol.tahun,
+		temp->biaya);
+		temp = temp->next;
+	}
+	printf("\n");
+}
