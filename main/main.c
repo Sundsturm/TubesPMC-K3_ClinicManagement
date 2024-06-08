@@ -4,15 +4,10 @@
 //Nama File			: main.c
 //Deskripsi			: Program utama atau main hub dari aplikasi manajemen data klinik
 
-// Import beberapa header pendukung aplikasi
-// Pembuatan prosedur dan fungsi pendukung dibuat terpisah dengan file ini
-
-
-// Definisi macros dan list yang dipakai
-
-
-// Fungsi/prosedur untuk program utama
-
+// Import headers
+#include "../lib/include/workwithdata.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 // Program utama
 int main() {
