@@ -11,6 +11,12 @@
 
 // Program utama
 int main() {
-
-
+    // Tulis kode di sini!
+	Pasien *list_pasien = NULL;
+	Diagnosis *list_diagnosis = NULL;
+	readCSVPasien("resources/DataPMC20232024(1).csv", &list_pasien);
+	readCSVDiagnosis("resources/DataPMC20232024(2).csv", &list_diagnosis);
+	printPasien(list_pasien);
+	printDiagnosis(list_diagnosis);
+	return 0;
 }
