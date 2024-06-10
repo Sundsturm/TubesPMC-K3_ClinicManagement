@@ -25,3 +25,4 @@ add_library(guigtk SHARED ${GUI_SOURCES})
 
 # Including all header files related to GUI that have been made
 target_include_directories(guigtk PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+target_link_libraries(guigtk ${GTK4_LIBRARIES})
