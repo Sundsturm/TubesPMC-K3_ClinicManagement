@@ -73,8 +73,3 @@ target_compile_options(guigtk PUBLIC
     "-ID:/msysnew/mingw64/bin/../include/glib-2.0"
     "-ID:/msysnew/mingw64/bin/../lib/glib-2.0/include")
 target_compile_options(guigtk PRIVATE ${GTK_CFLAGS_OTHER})
-
-message(STATUS "GTK Libraries: ${GTK_LIBRARIES}")
-message(STATUS "GTK Include Directories: ${GTK_INCLUDE_DIRS}")
-message(STATUS "GTK Compiler Flags: ${GTK_CFLAGS}")
-message(STATUS "GTK Library Directories: ${GTK_LIBRARY_DIRS}")
