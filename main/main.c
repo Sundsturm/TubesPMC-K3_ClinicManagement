@@ -6,6 +6,7 @@
 
 // Import headers
 #include "../lib/include/workwithdata.h"
+#include "../gui/include/mainwindow.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,8 +15,8 @@ int main() {
     // Tulis kode di sini!
 	Pasien *list_pasien = NULL;
 	Diagnosis *list_diagnosis = NULL;
-	readCSVPasien("resources/DataPMC20232024(1).csv", &list_pasien);
-	readCSVDiagnosis("resources/DataPMC20232024(2).csv", &list_diagnosis);
+	readCSVPasien("../resources/DataPMC20232024(1).csv", &list_pasien);
+	readCSVDiagnosis("../resources/DataPMC20232024(2).csv", &list_diagnosis);
 	printPasien(list_pasien);
 	printDiagnosis(list_diagnosis);
 	return 0;
