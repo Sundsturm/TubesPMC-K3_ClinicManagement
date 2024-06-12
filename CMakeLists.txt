@@ -1,3 +1,6 @@
+# Minimum version
+cmake_minimum_required(VERSION 3.6)
+
 # Project name
 project(tugas_besar_pmc)
 
