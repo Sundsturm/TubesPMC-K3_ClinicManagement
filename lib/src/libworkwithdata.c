@@ -1,6 +1,5 @@
 #include "../include/standardclib.h"
 #include "../include/workwithdata.h"
-#include "../include/pendapatan.h"
 
 /* Prosedur untuk meng-assign tanggal, bulan, dan tahun ke */
 void assignTanggal(char *str_t, Date* tanggal_t) {
