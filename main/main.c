@@ -4,20 +4,26 @@
 //Nama File			: main.c
 //Deskripsi			: Program utama atau main hub dari aplikasi manajemen data klinik
 
-// Import headers
-#include "../lib/include/workwithdata.h"
-#include "../gui/include/mainwindow.h"
-#include <stdio.h>
-#include <stdlib.h>
+// Import header
+#include "../lib/include/includeall.h"
 
 // Program utama
 int main() {
-    // Tulis kode di sini!
+	// Define and read datas
 	Pasien *list_pasien = NULL;
 	Diagnosis *list_diagnosis = NULL;
-	readCSVPasien("../resources/DataPMC20232024(1).csv", &list_pasien);
-	readCSVDiagnosis("../resources/DataPMC20232024(2).csv", &list_diagnosis);
-	printPasien(list_pasien);
-	printDiagnosis(list_diagnosis);
+	BiayaPengobatan *list_biayapengobatan = NULL;
+	readPasienData("../resources/DataPMC20232024(1).csv", &list_pasien);
+	readDiagnosisData("../resources/DataPMC20232024(2).csv", &list_diagnosis);
+	readBiayaPengobatanData("../resources/DataPMC20232024(3).csv", &list_biayapengobatan);
+
+	// Fitur Petugas Medis: Pasien dan Riwayat Medis
+	informasiPasienRiwayatMedis(list_pasien, list_diagnosis);
+
+	// Fitur Petugas Medis: Pasien dan Kontrol
+	PasienForKontrol(list_pasien, list_diagnosis);
+
+	// Fitur: Laporan Pendapatan
+	rataRataPendapatan(list_diagnosis, list_biayapengobatan);
 	return 0;
 }

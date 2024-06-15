@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../include/standardclib.h"
 #include "../include/workwithdata.h"
+#include "../include/pendapatan.h"
 
 /* Prosedur untuk meng-assign tanggal, bulan, dan tahun ke */
 void assignTanggal(char *str_t, Date* tanggal_t) {
@@ -22,166 +21,111 @@ void assignTanggal(char *str_t, Date* tanggal_t) {
 }
  
 /* Prosedur untuk membaca CSV yang menyimpan data pasien */
-void readCSVPasien(char *file, Pasien** list_pt) {
-	/* Definisi variabel dan data yang dipakai untuk pembacaan CSV*/
-	char* token;
-	char lines[MAX_STRING];
-	char del[2] = ";";
-	Pasien* temp = NULL;
- 
-	/* Membuka file */
-	FILE* file_path = fopen(file, "r");
- 
-	/* Cek kebenaran file input */
-	if (!file_path) {
-		printf("File tidak bisa dibuka.\n");
-		return;
-	}
- 
-	/* Membaca baris pertama yang berisi keterangan data CSV*/
-	fgets(lines, MAX_STRING, file_path);
-	strtok(lines, del);
- 
-	/* Membaca data dengan loop */
-	while (fgets(lines, MAX_STRING, file_path)) {
-		/* Variabel sementara untuk membaca data baru*/
-		Pasien* read_data = malloc(sizeof(*read_data));
-		Date temp_tanggal;
+void readPasienData(const char* filename, Pasien **list_px) {
+    FILE* file = fopen(filename, "r");
+    if (!file) {
+        perror("File tidak bisa dibuka!");
+        return;
+    }
 
-		/* Pembacaan data dan assign data ke read_data*/
-		// Nomor
-		token = strtok(lines, del);
-		read_data->nomor = atoi(token);
+    Pasien* head = NULL;
+    Pasien* tail = NULL;
+    char line[512];
+    fgets(line, sizeof(line), file);  // Skip the header line
 
-		// Nama Lengkap
-		token = strtok(NULL, del);
-		strcpy(read_data->nama_lengkap, token);
+    while (fgets(line, sizeof(line), file)) {
+        Pasien* newPasien = (Pasien*)malloc(sizeof(Pasien));
+        char tanggal_lahir[30];
+        sscanf(line, "%d;%[^;];%[^;];%[^;];%[^;];%[^;];%d;%[^;];%[^\n]",
+               &newPasien->nomor, newPasien->nama_lengkap, newPasien->alamat,
+               newPasien->kota, newPasien->tempat_lahir, tanggal_lahir,
+               &newPasien->umur, newPasien->bpjs, newPasien->id_pasien);
 
-		// Alamat
-		token = strtok(NULL, del);
-		strcpy(read_data->alamat, token);
+        assignTanggal(tanggal_lahir, &(newPasien->tanggal_lahir));
+        newPasien->next = NULL;
+        newPasien->prev = tail;
 
-		// Kota
-		token = strtok(NULL, del);
-		strcpy(read_data->kota, token);
-		
-		// Tempat Lahir
-		token = strtok(NULL, del);
-		strcpy(read_data->tempat_lahir, token);
+        if (tail) {
+            tail->next = newPasien;
+        } else {
+            head = newPasien;
+        }
+        tail = newPasien;
+    }
 
-		// Tanggal Lahir
-		token = strtok(NULL, del);
-		assignTanggal(token, &temp_tanggal);
-		read_data->tanggal_lahir = temp_tanggal;
-
-		// Umur
-		token = strtok(NULL, del);
-		read_data->umur = atoi(token);
-
-		// BPJS
-		token = strtok(NULL, del);
-		strcpy(read_data->bpjs, token);
-
-		// ID Pasien
-		token = strtok(NULL, del);
-		strcpy(read_data->id_pasien, token);
-
-		/* Membaca data baris pertama */
-		if (*list_pt == NULL) {
-			read_data->next = NULL;
-			read_data->prev = NULL;
-			*list_pt = read_data;
-			temp = *list_pt;
-		}
-		/* Membaca data untuk baris-baris selanjutnya*/
-		else {
-			while (temp->next != NULL) temp = temp->next;
-			read_data->prev = temp;
-			temp->next = read_data;
-			read_data->next = NULL;
-		}
-	}
-
-	/* Menutup file setelah pembacaan*/
-	fclose(file_path);
+    fclose(file);
+    *list_px = head;
 }
  
 /* Prosedur untuk membaca CSV yang menyimpan data diagnosis pasien */
-void readCSVDiagnosis(char* file, Diagnosis** list_dx) {
-	/* Definisi variabel dan data yang dipakai untuk pembacaan CSV*/
-	char* token;
-	char lines[MAX_STRING];
-	char del[2] = ";";
-	Diagnosis* temp = NULL;
- 
-	/* Membuka file */
-	FILE* file_path = fopen(file, "r");
- 
-	/* Cek kebenaran file input */
-	if (!file_path) {
-		printf("File tidak bisa dibuka.\n");
-		return;
-	}
- 
-	/* Membaca baris pertama yang berisi keterangan data CSV*/
-	fgets(lines, MAX_STRING, file_path);
-	strtok(lines, del);
- 
-	/* Membaca data dengan loop */
-	while (fgets(lines, MAX_STRING, file_path)) {
-		/* Variabel sementara untuk membaca data baru*/
-		Diagnosis* read_data = malloc(sizeof(*read_data));
-		Date temp_tanggal;
-		
-		/* Membaca data dan assign ke read_data */
-		// Nomor
-		token = strtok(lines, del);
-		read_data->nomor = atoi(token);
+void readDiagnosisData(const char* filename, Diagnosis **list_dx) {
+    FILE* file = fopen(filename, "r");
+    if (!file) {
+        perror("File tidak bisa dibuka!");
+        return;
+    }
 
-		// Tanggal Cek
-		token = strtok(NULL, del);
-		assignTanggal(token, &temp_tanggal);
-		(read_data)->tanggal_cek = temp_tanggal;
+    Diagnosis* head = NULL;
+    Diagnosis* tail = NULL;
+    char line[512];
+    fgets(line, sizeof(line), file);  // Skip the header line
 
-		// ID Pasien
-		token = strtok(NULL, del);
-		strcpy(read_data->id_pasien, token);
+    while (fgets(line, sizeof(line), file)) {
+        Diagnosis* newDiagnosis = (Diagnosis*)malloc(sizeof(Diagnosis));
+        char tanggal_cek[30], tanggal_kontrol[30];
+        sscanf(line, "%d;%[^;];%[^;];%[^;];%[^;];%[^;];%d",
+               &newDiagnosis->nomor, tanggal_cek, newDiagnosis->id_pasien,
+               newDiagnosis->diagnosis, newDiagnosis->tindakan,
+               tanggal_kontrol, &newDiagnosis->biaya);
 
-		// Diagnosis
-		token = strtok(NULL, del);
-		strcpy(read_data->diagnosis, token);
+		assignTanggal(tanggal_cek, &(newDiagnosis->tanggal_cek));
+		assignTanggal(tanggal_kontrol, &(newDiagnosis->tanggal_kontrol));
+        newDiagnosis->next = NULL;
+        newDiagnosis->prev = tail;
 
-		// Tindakan
-		token = strtok(NULL, del);
-		strcpy(read_data->tindakan, token);
+        if (tail) {
+            tail->next = newDiagnosis;
+        } else {
+            head = newDiagnosis;
+        }
+        tail = newDiagnosis;
+    }
 
-		// Tanggal Kontrol
-		token = strtok(NULL, del);
-		assignTanggal(token, &temp_tanggal);
-		read_data->tanggal_kontrol = temp_tanggal;
+    fclose(file);
+	*list_dx = head;
+}
 
-		// Biaya
-		token = strtok(NULL, del);
-		read_data->biaya = atoi(token);
+/* Prosedur untuk membac CSV yng menyimpan data biaya*/
+void readBiayaPengobatanData(const char* filename, BiayaPengobatan **list_biaya) {
+    FILE* file = fopen(filename, "r");
+    if (!file) {
+        perror("File tidak bisa dibuka!\n");
+        return;
+    }
 
-		/* Membaca data baris pertama */
-		if (*list_dx == NULL) {
-			read_data->next = NULL;
-			read_data->prev = NULL;
-			*list_dx = read_data;
-			temp = *list_dx;
-		}
-		/* Membaca data untuk baris-baris selanjutnya*/
-		else {
-			while (temp->next != NULL) temp = temp->next; 
-			read_data->prev = temp;
-			temp->next = read_data;
-			read_data->next = NULL;
-		}
-	}
- 
-	/* Menutup file setelah pembacaan*/
-	fclose(file_path);
+    BiayaPengobatan* head = NULL;
+    BiayaPengobatan* tail = NULL;
+    char line[512];
+    fgets(line, sizeof(line), file);  // Skip the header line
+
+    while (fgets(line, sizeof(line), file)) {
+        BiayaPengobatan* newBiayaPengobatan = (BiayaPengobatan*)malloc(sizeof(BiayaPengobatan));
+        sscanf(line, "%d;%[^;];%d",
+               &newBiayaPengobatan->nomor, newBiayaPengobatan->aktivitas, &newBiayaPengobatan->biaya);
+
+        newBiayaPengobatan->next = NULL;
+        newBiayaPengobatan->prev = tail;
+
+        if (tail) {
+            tail->next = newBiayaPengobatan;
+        } else {
+            head = newBiayaPengobatan;
+        }
+        tail = newBiayaPengobatan;
+    }
+
+    fclose(file);
+    *list_biaya = head;
 }
 
 void printPasien(Pasien *list_pt){
@@ -214,6 +158,18 @@ void printDiagnosis(Diagnosis *list_dx){
 		temp->tanggal_kontrol.hari, temp->tanggal_kontrol.bulan, temp->tanggal_kontrol.tahun,
 		temp->biaya);
 		temp = temp->next;
+	}
+	printf("\n");
+}
+
+void printBiayaPengobatan(BiayaPengobatan *list_biaya){
+	BiayaPengobatan *temp = list_biaya;
+	if(temp == NULL){
+		printf("Data kosong!\n");
+		return;
+	}
+	while(temp != NULL){
+		printf("%d, %s, %d\n", temp->nomor, temp->aktivitas, temp->biaya);
 	}
 	printf("\n");
 }

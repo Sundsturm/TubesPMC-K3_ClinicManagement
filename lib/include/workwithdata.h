@@ -1,7 +1,7 @@
 #ifndef __WORKWITHDATA_H__
 #define __WORKWITHDATA_H__
 #define MAX_STRING 256
-#define MAX_MONTH 10
+#define MAX_MONTH 20
 
 /* Struktur data yang digunakan untuk pembacaan CSV*/
 typedef struct Date {
@@ -9,7 +9,6 @@ typedef struct Date {
 	char bulan[MAX_MONTH];
 	int tahun;
 } Date;
-
 typedef struct Pasien {
 	int nomor;
 	char nama_lengkap[MAX_STRING];
@@ -23,7 +22,6 @@ typedef struct Pasien {
 	struct Pasien* next;
 	struct Pasien* prev;
 } Pasien;
-
 typedef struct Diagnosis {
 	int nomor;
 	Date tanggal_cek;
@@ -35,11 +33,20 @@ typedef struct Diagnosis {
 	struct Diagnosis* next;
 	struct Diagnosis* prev;
 } Diagnosis;
+typedef struct BiayaPengobatan {
+    int nomor;
+    char aktivitas[MAX_STRING];
+    int biaya;
+    struct BiayaPengobatan* next;
+    struct BiayaPengobatan* prev;
+} BiayaPengobatan;
 
 void assignTanggal(char* str_t, Date* tanggal_t);
-void readCSVPasien(char* file, Pasien** list_pt);
-void readCSVDiagnosis(char* file, Diagnosis** list_dx);
+void readPasienData(const char* filename, Pasien **list_px);
+void readDiagnosisData(const char* filename, Diagnosis **list_dx);
+void readBiayaPengobatanData(const char* filename, BiayaPengobatan **list_biaya);
 void printPasien(Pasien *list_pt);
 void printDiagnosis(Diagnosis *list_dx);
+void printBiayaPengobatan(BiayaPengobatan *list_biaya);
 
 #endif
