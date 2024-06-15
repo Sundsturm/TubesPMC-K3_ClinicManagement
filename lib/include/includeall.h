@@ -4,4 +4,5 @@
 #include "workwithdata.h"
 #include "pendapatan.h"
 #include "petugasmedis.h"
+#include "manajemendata.h"
 #endif
