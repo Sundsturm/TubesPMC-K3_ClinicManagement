@@ -220,6 +220,7 @@ void perMonth(Diagnosis *list_dx, int year, char month[]) {
     
 }
 
+/*
 int main() {
     Pasien *list_pasien = NULL;
 	Diagnosis *list_diagnosis = NULL;
@@ -253,3 +254,4 @@ int main() {
 
 
 }
+*/
