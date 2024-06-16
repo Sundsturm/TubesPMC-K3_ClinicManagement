@@ -3,57 +3,6 @@
 #include "stdlib.h"
 #include "string.h"
 
-struct Node {
-    int v;
-    char diagnose[MAX_STRING];
-    struct Node* left;
-    struct Node* right;
-};
-
-struct Node* newNode(char diagnose[], int v) {
-    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
-    temp -> left = temp -> right = NULL;
-    temp -> v = v;
-    strcpy(temp -> diagnose, diagnose);
-    return temp;
-}
-
-void insert(struct Node* current, char diagnose[], int v) {
-    if(v <= (current -> v)) {
-        if(current -> left != NULL) {
-            insert(current -> left, diagnose, v);
-        } else {
-            current -> left = newNode(diagnose, v);
-        }
-    } else {
-        if(current -> right != NULL) {
-            insert(current -> right, diagnose, v); 
-        } else {
-            current -> right = newNode(diagnose, v);
-        }
-    }
-    return;
-}
-
-void dfs_tree(struct Node* current) {
-    if(current -> left != NULL) {
-        dfs_tree(current -> left);
-    }
-
-    printf("%s with total %d\n", current ->diagnose, current -> v);
-
-    if(current -> right != NULL) {
-        dfs_tree(current -> right);
-    }
-}
-
-void freeTree(struct Node* cur) {
-    if(cur == NULL) return;
-    freeTree(cur -> left);
-    freeTree(cur -> right);
-    free(cur);
-}
-
 int findMax(Diagnosis* list_dx) {
     int idx = 0;
     while(list_dx != NULL) {
@@ -177,6 +126,11 @@ void perYear(Diagnosis *list_dx, int year, struct Bulan** bulan, int* total_diag
     char diagnose [mx][MAX_STRING]; 
 
     findUnique(list_dx, diagnose, &idx);
+    findYear(list_dx, &min_year, &max_year);
+    if(year > max_year || year < min_year) {
+        puts("Data tidak ada\n");
+        return;
+    }
     *bulan = (struct Bulan*)malloc(12 * sizeof(struct Bulan));
     *total_diagnose = idx;
     Diagnosis* current_diagnose = list_dx;
@@ -216,17 +170,48 @@ void perYear(Diagnosis *list_dx, int year, struct Bulan** bulan, int* total_diag
     }
 }
 
-void perMonth(Diagnosis *list_dx, int year, char month[]) {
-    
+void perMonth(Diagnosis *list_dx, int year, char month[], Data** bulan, int* total_diagnose) {
+    int idx, min_year, max_year; 
+    const int mx = findMax(list_dx); // find maximal diagnose
+    char diagnose [mx][MAX_STRING];
+
+    findUnique(list_dx, diagnose, &idx);
+    findYear(list_dx, &min_year, &max_year);
+    if(year > max_year || year < min_year) {
+        puts("Data tidak ada\n");
+        return;
+    }
+    Data* current_data = (Data*)malloc(idx * sizeof(Data));
+    for(int i = 0; i < idx; ++i) {
+        current_data[i].total = 0;
+        strcpy(current_data[i].diagnose, diagnose[i]);
+    }
+
+    Diagnosis* current_diagnose = list_dx;
+    while(current_diagnose != NULL) {
+        Date cur = current_diagnose -> tanggal_cek;
+        if(strcmp(month, cur.bulan) == 0 && cur.tahun == year) {
+            for(int d = 0; d < idx; ++d) {
+                if(strcmp(current_diagnose ->diagnosis, diagnose[d]) == 0) {
+                    current_data[d].total += 1;
+                }
+            }
+        }
+        current_diagnose = current_diagnose -> next;
+    }
+
+    *bulan = current_data;
+    *total_diagnose = idx;
 }
 
+/*
 int main() {
     Pasien *list_pasien = NULL;
 	Diagnosis *list_diagnosis = NULL;
 	readCSVPasien("../../resources/DataPMC20232024(1).csv", &list_pasien);
 	readCSVDiagnosis("../../resources/DataPMC20232024(2).csv", &list_diagnosis);
 
-    /* contoh Diagnose all Year
+    contoh Diagnose all Year
     struct Tahun* data_year = NULL;
     int total_year, total_diagnose;
     allYear(list_diagnosis, &data_year, &total_year, &total_diagnose);
@@ -249,7 +234,14 @@ int main() {
         }
         puts("");
     }
-    */
 
-
+    contoh Diagnose sepesifik tahun dan bulan
+    Data* penyakit = NULL;
+    int total_diagnose, year;
+    perMonth(list_diagnosis, 2022, "Desember", &penyakit, &total_diagnose); // pang
+    for(int i = 0; i < total_diagnose; ++i){
+        printf("%s with total %d\n", penyakit[i].diagnose, penyakit[i].total);
+    }
 }
+
+*/
