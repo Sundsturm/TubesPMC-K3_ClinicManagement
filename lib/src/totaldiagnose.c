@@ -200,6 +200,16 @@ void perMonth(Diagnosis *list_dx, int year, char month[], Data** bulan, int* tot
         current_diagnose = current_diagnose -> next;
     }
 
+    for(int i = 0; i < idx; ++i) {
+        for(int d = 0; d + 1 < idx; ++d) {
+            if(current_data[d].total > current_data[d + 1].total) {
+                int temp = current_data[d].total;
+                current_data[d].total = current_data[d + 1].total;
+                current_data[d + 1].total = temp;
+            }
+        }
+    }
+
     *bulan = current_data;
     *total_diagnose = idx;
 }
