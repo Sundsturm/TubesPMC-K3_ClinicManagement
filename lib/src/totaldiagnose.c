@@ -243,5 +243,3 @@ int main() {
         printf("%s with total %d\n", penyakit[i].diagnose, penyakit[i].total);
     }
 }
-
-*/
