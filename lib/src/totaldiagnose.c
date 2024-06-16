@@ -221,9 +221,9 @@ int main() {
             printf("%s with total %d\n", data_year[i].diagnoses[j].diagnose, data_year[i].diagnoses[j].total);
         }
     }
-    */
+    //*/
 
-    /* Contoh Diagnose per month
+    ///* Contoh Diagnose per month
     struct Bulan* data_month = NULL;
     int total_diagnose;
     perYear(list_diagnosis, 2022, &data_month, &total_diagnose); // (list penyakit, tahun, struct data bulan, total diagnosis);
@@ -243,3 +243,4 @@ int main() {
         printf("%s with total %d\n", penyakit[i].diagnose, penyakit[i].total);
     }
 }
+*/
