@@ -19,7 +19,7 @@ void DateSearch(Diagnosis* list_diag, int* count, Date* input);
 void DiagIDSearch(Diagnosis* list_diag, int* count, char input[MAX_STRING]);
 void CariDiag(Diagnosis* list_diag);
 void UbahDataDiag(Diagnosis** list_diag, BiayaPengobatan* list_tdk);
-void UbahDiag(Diagnosis** list_diag, Tindakan* list_tdk);
+void UbahDiag(Diagnosis** list_diag, BiayaPengobatan* list_tdk);
 void HapusDataDiag(Diagnosis** list_diag, Diagnosis* target);
 void HapusDiag(Diagnosis** list_diag);
 void ManajemenDataDiag(Diagnosis** list_diag, BiayaPengobatan* list_tdk);

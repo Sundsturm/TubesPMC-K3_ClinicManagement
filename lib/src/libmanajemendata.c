@@ -779,7 +779,7 @@ void UbahDataDiag(Diagnosis** list_diag, BiayaPengobatan* list_tdk){
 	return;
 }
 
-void UbahDiag(Diagnosis** list_diag, Tindakan* list_tdk){
+void UbahDiag(Diagnosis** list_diag, BiayaPengobatan* list_tdk){
 	Diagnosis *templist = *list_diag;
 	Date dateinput;
 	char idinput[MAX_STRING];
