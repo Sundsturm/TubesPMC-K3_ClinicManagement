@@ -52,5 +52,6 @@ void countLenPasien(Pasien *list_pt, int *a);
 void countLenDiagnosis(Diagnosis *list_dt, int *a);
 void free_pasien_list(Pasien* head);
 void free_diagnosis_list(Diagnosis* head);
-
+void writeCSVPasien(char* file, Pasien* list_pt);
+void writeCSVDiagnosis(char* file, Diagnosis* list_diag);
 #endif

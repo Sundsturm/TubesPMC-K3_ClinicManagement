@@ -198,6 +198,42 @@ void countLenDiagnosis(Diagnosis *list_dt, int *a){
     }
 }
 
+void writeCSVPasien(char* file, Pasien* list_pt){
+    char lines[MAX_STRING];
+    Pasien* temp = list_pt;
+
+    FILE* file_path = fopen(file, "w");
+
+    fputs("No;Nama Lengkap;Alamat;Kota;Tempat Lahir;Tanggal Lahir;Umur (th);No BPJS;ID Pasien\n", file_path);
+
+    while(temp != NULL){
+    sprintf(lines,"%d;%s;%s;%s;%s;%d %s %d;%d;%s;%s\n",temp->nomor, temp->nama_lengkap, temp->alamat, temp->kota, temp->tempat_lahir,temp->tanggal_lahir.hari, temp->tanggal_lahir.bulan, temp->tanggal_lahir.tahun,temp->umur, temp->bpjs, temp->id_pasien);
+    fputs(lines, file_path);
+    temp = temp->next;
+    }
+
+    fclose(file_path);
+    return;
+}
+
+void writeCSVDiagnosis(char* file, Diagnosis* list_diag){
+    char lines[MAX_STRING];
+    Diagnosis* temp = list_diag;
+
+    FILE* file_path = fopen(file, "w");
+
+    fputs("No;Tanggal;ID Pasien;Diagnosis;Tindakan;Kontrol;Biaya (Rp)\n", file_path);
+
+    while(temp != NULL){
+    sprintf(lines, "%d;%d %s %d;%s;%s;%s;%d %s %d;%d\n",temp->nomor,temp->tanggal_cek.hari, temp->tanggal_cek.bulan, temp->tanggal_cek.tahun,temp->id_pasien, temp->diagnosis, temp->tindakan,temp->tanggal_kontrol.hari, temp->tanggal_kontrol.bulan, temp->tanggal_kontrol.tahun,temp->biaya);
+    fputs(lines, file_path);
+    temp = temp->next;
+    }
+
+    fclose(file_path);
+    return;
+}
+
 void free_pasien_list(Pasien* head) {
     Pasien* temp;
     while (head != NULL) {
