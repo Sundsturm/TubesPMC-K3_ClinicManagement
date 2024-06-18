@@ -1,0 +1,1793 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.40.0 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkWindow" id="add_diagnosis_form">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkFixed" id="add_diagnosis_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel" id="add_diagnosis_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Masukkan Nama Lengkap	:
+
+Masukkan Alamat			:
+
+Masukkan Kota			:
+
+Masukkan Tempat Lahir		:
+
+Masukkan Tanggal Lahir		:
+
+Masukkan Umur			:
+
+Masukkan No. BPJS			:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="nama_lengkap_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">10</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="alamat_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">60</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="kota_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">110</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="tempat_lahir_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">160</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="tanggal_lahir_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">210</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="umur_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">260</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="bpjs_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">310</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="add_diagnosis_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_add_diagnosis_submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">250</property>
+            <property name="y">360</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="add_pasien_form">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkFixed" id="add_pasien_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel" id="add_pasien_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Masukkan Tanggal Kunjungan	:
+
+Masukkan ID Pasien		:
+
+Masukkan Diagnosis		:
+
+Masukkan Tindakan		:
+
+Masukkan Tanggal Kontrol	:
+
+Masukkan Biaya			:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="add_pasien_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="x">250</property>
+            <property name="y">310</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="tanggal_kunjungan_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">10</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="ID-Pasien_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">60</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="diagnosis_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">110</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="tindakan_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">160</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="tanggal_kontrol_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">210</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="biaya_entry">
+            <property name="width-request">320</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">276</property>
+            <property name="y">260</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkListStore" id="diagnosis_list">
+    <columns>
+      <!-- column-name No. -->
+      <column type="gint"/>
+      <!-- column-name Tanggal -->
+      <column type="gchararray"/>
+      <!-- column-name ID -->
+      <column type="gchararray"/>
+      <!-- column-name Diagnosis -->
+      <column type="gchararray"/>
+      <!-- column-name Tindakan -->
+      <column type="gchararray"/>
+      <!-- column-name Tanggal1 -->
+      <column type="gchararray"/>
+      <!-- column-name Biaya -->
+      <column type="gint"/>
+    </columns>
+  </object>
+  <object class="GtkWindow" id="list_pasien_riwayat_window">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkTreeView" id="filtered_pasien_riwayat">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="model">diagnosis_list</property>
+        <child internal-child="selection">
+          <object class="GtkTreeSelection"/>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="edit_diagnosis_form">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkFixed" id="edit_diagnosis_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel" id="diagnosis_elemen_sel_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Pilih elemen data yang ingin diubah:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="tanggal_kunjungan_sel_radio">
+            <property name="label" translatable="yes">Tanggal Kunjungan</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">34</property>
+            <property name="y">38</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="id_pasien_sel_diagnosis_radio">
+            <property name="label" translatable="yes">ID Pasien</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">34</property>
+            <property name="y">68</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="diagnosis_sel_radio">
+            <property name="label" translatable="yes">Diagnosis</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">34</property>
+            <property name="y">98</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="tindakan_sel_radio">
+            <property name="label" translatable="yes">Tindakan</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">34</property>
+            <property name="y">128</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="tanggal_kontrol_sel_radio">
+            <property name="label" translatable="yes">Tanggal Kontrol</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">34</property>
+            <property name="y">158</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="biaya_sel_radio">
+            <property name="label" translatable="yes">Biaya</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">224</property>
+            <property name="y">38</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="value_pasien_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Masukkan data terbaru:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">192</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="value_pasien_entry">
+            <property name="width-request">300</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">220</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="value_pasien_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="x">128</property>
+            <property name="y">262</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="edit_pasien_form">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkFixed" id="edit_pasien_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel" id="pasien_elemen_sel_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Pilih elemen data yang ingin diubah:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="nama_lengkap_sel_radio">
+            <property name="label" translatable="yes">Nama Lengkap</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">34</property>
+            <property name="y">38</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="alamat_sel_radio">
+            <property name="label" translatable="yes">Alamat</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">34</property>
+            <property name="y">68</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="kota_sel_radio">
+            <property name="label" translatable="yes">Kota</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">34</property>
+            <property name="y">98</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="tempat_lahir_sel_radio">
+            <property name="label" translatable="yes">Tempat Lahir</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">34</property>
+            <property name="y">128</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="tanggal_lahir_sel_radio">
+            <property name="label" translatable="yes">Tanggal Lahir</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">34</property>
+            <property name="y">158</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="umur_sel_radio">
+            <property name="label" translatable="yes">Umur</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">204</property>
+            <property name="y">38</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="bpjs_sel_radio">
+            <property name="label" translatable="yes">No. BPJS</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">204</property>
+            <property name="y">68</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="id_pasien_sel_pasien_radio">
+            <property name="label" translatable="yes">ID Pasien</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">204</property>
+            <property name="y">98</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="value_diagnosis_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Masukkan data terbaru:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">192</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="value_diagnosis_entry">
+            <property name="width-request">300</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">220</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="value_diagnosis_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="x">128</property>
+            <property name="y">262</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="list_search_diagnosis">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkFixed" id="list_search_diagnosis_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkTreeView" id="table_search_diagnosis">
+            <property name="width-request">1120</property>
+            <property name="height-request">550</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="choose_diagnosis_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">562</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="num_diagnosis_entry">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">600</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="num_diagnosis_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_num_diagnosis_submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">196</property>
+            <property name="y">600</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkListStore" id="pasien_list">
+    <columns>
+      <!-- column-name No. -->
+      <column type="gint"/>
+      <!-- column-name Nama -->
+      <column type="gchararray"/>
+      <!-- column-name Alamat -->
+      <column type="gchararray"/>
+      <!-- column-name Kota -->
+      <column type="gchararray"/>
+      <!-- column-name Tempat -->
+      <column type="gchararray"/>
+      <!-- column-name Tanggal -->
+      <column type="gchararray"/>
+      <!-- column-name Umur -->
+      <column type="gint"/>
+      <!-- column-name No.1 -->
+      <column type="gchararray"/>
+      <!-- column-name ID -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkWindow" id="list_search_pasien">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkFixed" id="list_search_pasien_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkTreeView" id="table_search_pasien">
+            <property name="width-request">1440</property>
+            <property name="height-request">550</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="model">pasien_list</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="choose_pasien_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">562</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="num_pasien_entry">
+            <property name="width-request">100</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">600</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="num_pasien_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_num_pasien_submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">196</property>
+            <property name="y">600</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="main_window">
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes">Clinic Management App</property>
+    <child>
+      <object class="GtkFixed" id="main_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkStack" id="main_stack">
+            <property name="width-request">380</property>
+            <property name="height-request">550</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkFixed" id="main_stack_1">
+                <property name="height-request">640</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkActionBar" id="s_u_d_1">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkButton" id="delete_stack_1">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_delete_stack_1_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="delete_icon_1">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-delete-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="update_stack_1">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_update_stack_1_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="edit_icon_1">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-edit-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="search_stack_1">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_search_stack_1_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="search_icon_1">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-search-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="create_stack_1">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_create_stack_1_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="create_icon_1">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-plus-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeView" id="pasien_table">
+                    <property name="width-request">620</property>
+                    <property name="height-request">520</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="model">pasien_list</property>
+                    <property name="search-column">0</property>
+                    <property name="enable-grid-lines">both</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="pasien_list_select"/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="y">52</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButtonBox" id="pagination_stack_1">
+                    <property name="width-request">100</property>
+                    <property name="height-request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="spacing">2</property>
+                    <property name="layout-style">start</property>
+                    <child>
+                      <object class="GtkButton" id="prev_stack_1">
+                        <property name="label" translatable="yes">Previous</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_prev_stack_1_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="next_stack_1">
+                        <property name="label" translatable="yes">Next</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_next_stack_1_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="y">572</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">main_stack_1</property>
+                <property name="title" translatable="yes">Data Pasien</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="main_stack_2">
+                <property name="height-request">640</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkActionBar" id="s_u_d_2">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkButton" id="delete_stack_2">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_delete_stack_2_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="delete_icon_2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-delete-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="update_stack_2">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_update_stack_2_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="edit_icon_2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-edit-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="search_stack_2">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_search_stack_2_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="search_icon_2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-search-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="create_stack_2">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_create_stack_2_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="create_icon_2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-plus-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeView" id="diagnosis_table">
+                    <property name="width-request">620</property>
+                    <property name="height-request">520</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="model">diagnosis_list</property>
+                    <property name="enable-grid-lines">both</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="diagnosis_list_select"/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="y">52</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButtonBox" id="pagination_stack_2">
+                    <property name="width-request">100</property>
+                    <property name="height-request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="spacing">2</property>
+                    <property name="layout-style">start</property>
+                    <child>
+                      <object class="GtkButton" id="prev_stack_2">
+                        <property name="label" translatable="yes">Previous</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_prev_stack_2_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="next_stack_2">
+                        <property name="label" translatable="yes">Next</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_next_stack_2_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="y">572</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">main_stack_2</property>
+                <property name="title" translatable="yes">Data Diagnosis</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="main_stack_3">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkActionBar" id="action_pasien_riwayat-medis">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkButton" id="button_pasien_riwayat_medis">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_button_pasien_riwayat_medis_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="pasien_riwayat-medis_icon">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-create-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeView" id="filtered_pasien_data">
+                    <property name="width-request">620</property>
+                    <property name="height-request">520</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="model">pasien_list</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="pasien_select_data"/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="y">52</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_riwayat_medis">
+                    <property name="label" translatable="yes">Riwayat Medis</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <signal name="clicked" handler="on_button_riwayat_medis_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="y">594</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">main_stack_3</property>
+                <property name="title" translatable="yes">Pasien dan Riwayat Medis</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="main_stack_4">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkActionBar" id="action_pasien_kontrol">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkButton" id="button_pasien_kontrol">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_button_pasien_kontrol_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="pasien_kontrol_icon">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-create-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeView" id="filtered_diagnosis_list">
+                    <property name="width-request">620</property>
+                    <property name="height-request">520</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="model">diagnosis_list</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="y">52</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">main_stack_4</property>
+                <property name="title" translatable="yes">Pasien dan Kontrol</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="main_stack_5">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkActionBar" id="action_pasien_penyakit">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkButton" id="button_pasien_penyakit">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_button_pasien_penyakit_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="pasien_penyakit_icon">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-create-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTextView" id="textview_pasien_penyakit">
+                    <property name="width-request">620</property>
+                    <property name="height-request">520</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                  </object>
+                  <packing>
+                    <property name="y">52</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">main_stack_5</property>
+                <property name="title" translatable="yes">Pasien dan Penyakit</property>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="main_stack_6">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkActionBar" id="action_pendapatan">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkButton" id="button_pendapatan">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_button_pendapatan_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="pendapatan_icon">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-create-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTextView" id="textview_pendapatan">
+                    <property name="width-request">620</property>
+                    <property name="height-request">520</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                  </object>
+                  <packing>
+                    <property name="y">52</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">main_stack_6</property>
+                <property name="title" translatable="yes">Laporan Pendapatan</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="x">250</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="frame_sidebar">
+            <property name="width-request">100</property>
+            <property name="height-request">276</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label-xalign">0</property>
+            <property name="label-yalign">0</property>
+            <property name="shadow-type">none</property>
+            <child>
+              <object class="GtkAlignment" id="alignment_sidebar">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkStackSidebar" id="main_stack_sidebar">
+                    <property name="width-request">250</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="stack">main_stack</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="y">52</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="data_pasien_icon">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="pixbuf">../assets\icons8-patient-16.png</property>
+          </object>
+          <packing>
+            <property name="x">220</property>
+            <property name="y">66</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="data_diagnosis_icon">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="pixbuf">../assets\icons8-health-checkup-16.png</property>
+          </object>
+          <packing>
+            <property name="x">220</property>
+            <property name="y">114</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="data_pasien_riwayat-medis_icon">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="pixbuf">../assets\icons8-history-16.png</property>
+          </object>
+          <packing>
+            <property name="x">220</property>
+            <property name="y">158</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="data_pasien_kontrol_icon">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="pixbuf">../assets\icons8-date-to-16.png</property>
+          </object>
+          <packing>
+            <property name="x">220</property>
+            <property name="y">206</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHeaderBar" id="main_headerbar">
+            <property name="width-request">250</property>
+            <property name="height-request">55</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title" translatable="yes">Clinic Management</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkImage" id="data_pasien_penyakit_icon">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="pixbuf">../assets\icons8-disease-16.png</property>
+          </object>
+          <packing>
+            <property name="x">220</property>
+            <property name="y">252</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="data_pendapatan_icon">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="pixbuf">../assets\icons8-income-16.png</property>
+          </object>
+          <packing>
+            <property name="x">220</property>
+            <property name="y">296</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="kelompok_pmc_label">
+            <property name="width-request">153</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Created By:
+Kelompok 03
+K02
+2023/2024</property>
+            <property name="justify">center</property>
+            <attributes>
+              <attribute name="style" value="oblique"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="x">38</property>
+            <property name="y">517</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="pasien_kontrol_form">
+    <property name="can-focus">False</property>
+    <property name="relative-to">button_pasien_penyakit</property>
+    <child>
+      <object class="GtkFixed" id="pasien_kontrol_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkButton" id="pasien_kontrol_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_pasien_kontrol_submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">212</property>
+            <property name="y">80</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="pasien_kontrol_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Masukkan tanggal kontrol:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="pasien_kontrol_entry">
+            <property name="width-request">480</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="placeholder-text" translatable="yes">Format: DD Bulan YYYY</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">38</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="pendapatan_form">
+    <property name="can-focus">False</property>
+    <property name="relative-to">button_pendapatan</property>
+    <child>
+      <object class="GtkFixed" id="pendapatan_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkButton" id="pendapatan_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_pendapatan_submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">90</property>
+            <property name="y">152</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="pendapatan_bulan_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Masukkan bulan:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="bulan_pendapatan_entry">
+            <property name="width-request">220</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="placeholder-text" translatable="yes">Format: Bulan</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">40</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="pendapatan_tahun_label">
+            <property name="width-request">100</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Masukkan tahun:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">82</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="tahun_pendapatan_entry">
+            <property name="width-request">220</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="placeholder-text" translatable="yes">Format: YYYY</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">110</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="search_diagnosis_form">
+    <property name="can-focus">False</property>
+    <property name="relative-to">search_stack_2</property>
+    <child>
+      <object class="GtkFixed" id="search_diagnosis_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel" id="diagnosis_element_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Pilih salah satu elemen data yang dicari:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="ID_Pasien_diagnosis_element_radio">
+            <property name="label" translatable="yes">ID Pasien</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+            <signal name="toggled" handler="on_ID_Pasien_diagnosis_element_radio_toggled" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">40</property>
+            <property name="y">38</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="Tanggal_Kunjungan_diagnosis_element_radio">
+            <property name="label" translatable="yes">Tanggal Kunjungan</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+            <signal name="toggled" handler="on_Tanggal_Kunjungan_diagnosis_element_radio_toggled" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">170</property>
+            <property name="y">38</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="enter_value_search_diagnosis_label">
+            <property name="width-request">214</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">72</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="value_search_diagnosis_entry">
+            <property name="width-request">312</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">104</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="diagnosis_search_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_diagnosis_search_submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">128</property>
+            <property name="y">144</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="search_pasien_form">
+    <property name="can-focus">False</property>
+    <property name="relative-to">search_stack_1</property>
+    <child>
+      <object class="GtkFixed" id="search_pasien_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel" id="pasien_element_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Pilih salah satu elemen data yang dicari:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="ID_Pasien_pasien_element_radio">
+            <property name="label" translatable="yes">ID Pasien</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+            <signal name="toggled" handler="on_ID_Pasien_pasien_element_radio_toggled" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">40</property>
+            <property name="y">38</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="Nama_Lengkap_pasien_element_radio">
+            <property name="label" translatable="yes">Nama Lengkap</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+            <signal name="toggled" handler="on_Nama_Lengkap_pasien_element_radio_toggled" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">170</property>
+            <property name="y">38</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="enter_value_search_pasien_label">
+            <property name="width-request">214</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">72</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="value_search_pasien_entry">
+            <property name="width-request">312</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">104</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="pasien_search_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_pasien_search_submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">128</property>
+            <property name="y">144</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="pasien_penyakit_form">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkFixed" id="pasien_penyakit_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel" id="pasien_penyakit_mode_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Pilih salah satu mode output yang diinginkan:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="pasien_penyakit_mode1">
+            <property name="label" translatable="yes">Output per Tahun</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">40</property>
+            <property name="y">38</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="pasien_penyakit_mode2">
+            <property name="label" translatable="yes">Output per Bulan</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">40</property>
+            <property name="y">68</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="pasien_penyakit_mode3">
+            <property name="label" translatable="yes">Output Spesifik Bulan dan Tahun</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="x">40</property>
+            <property name="y">98</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="pasien_penyakit_mode_bulan_tahun_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">128</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="pasien_penyakit_mode_bulan_tahun_entry">
+            <property name="width-request">200</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">160</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="pasien_penyakit_mode3_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Masukkan tahun:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">200</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="pasien_penyakit_mode3_entry">
+            <property name="width-request">200</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">228</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="pasien_penyakit_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="x">170</property>
+            <property name="y">270</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="pasien_riwayat_medis_form">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkFixed" id="pasien_riwayat_medis_container">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel" id="pasien_riwayat_medis_label">
+            <property name="width-request">100</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Masukkan ID Pasien:</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="pasien_riwayat_medis_entry">
+            <property name="width-request">280</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="placeholder-text" translatable="yes">Format: KX ....</property>
+          </object>
+          <packing>
+            <property name="x">24</property>
+            <property name="y">40</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="pasien_riwayat_medis_submit">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_pasien_riwayat-medis_submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">116</property>
+            <property name="y">80</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
