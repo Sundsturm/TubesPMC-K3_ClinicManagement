@@ -478,7 +478,7 @@ void KonversiKontrol(Date* tanggal_kedatangan){
 	}
 
 	if(nobulan > 11){
-		nobulan = nobulan - 11;
+		nobulan = nobulan - 12;
 		tahun++;
 	}
 
