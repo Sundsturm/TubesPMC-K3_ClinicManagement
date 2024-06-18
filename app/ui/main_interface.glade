@@ -552,34 +552,16 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkButton" id="delete_stack_1">
+                      <object class="GtkButton" id="create_stack_1">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_delete_stack_1_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on_create_stack_1_clicked" swapped="no"/>
                         <child>
-                          <object class="GtkImage" id="delete_icon_1">
+                          <object class="GtkImage" id="create_icon_1">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-delete-16.png</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="update_stack_1">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_update_stack_1_clicked" swapped="no"/>
-                        <child>
-                          <object class="GtkImage" id="edit_icon_1">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-edit-16.png</property>
+                            <property name="pixbuf">../assets\icons8-plus-16.png</property>
                           </object>
                         </child>
                       </object>
@@ -606,16 +588,34 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="create_stack_1">
+                      <object class="GtkButton" id="update_stack_1">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_create_stack_1_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on_update_stack_1_clicked" swapped="no"/>
                         <child>
-                          <object class="GtkImage" id="create_icon_1">
+                          <object class="GtkImage" id="edit_icon_1">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-plus-16.png</property>
+                            <property name="pixbuf">../assets\icons8-edit-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="delete_stack_1">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_delete_stack_1_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="delete_icon_1">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-delete-16.png</property>
                           </object>
                         </child>
                       </object>
@@ -699,34 +699,16 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkButton" id="delete_stack_2">
+                      <object class="GtkButton" id="create_stack_2">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_delete_stack_2_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on_create_stack_2_clicked" swapped="no"/>
                         <child>
-                          <object class="GtkImage" id="delete_icon_2">
+                          <object class="GtkImage" id="create_icon_2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-delete-16.png</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="update_stack_2">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_update_stack_2_clicked" swapped="no"/>
-                        <child>
-                          <object class="GtkImage" id="edit_icon_2">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-edit-16.png</property>
+                            <property name="pixbuf">../assets\icons8-plus-16.png</property>
                           </object>
                         </child>
                       </object>
@@ -753,16 +735,34 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="create_stack_2">
+                      <object class="GtkButton" id="update_stack_2">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_create_stack_2_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on_update_stack_2_clicked" swapped="no"/>
                         <child>
-                          <object class="GtkImage" id="create_icon_2">
+                          <object class="GtkImage" id="edit_icon_2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-plus-16.png</property>
+                            <property name="pixbuf">../assets\icons8-edit-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="delete_stack_2">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_delete_stack_2_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="delete_icon_2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-delete-16.png</property>
                           </object>
                         </child>
                       </object>
@@ -832,7 +832,7 @@
               </object>
               <packing>
                 <property name="name">main_stack_2</property>
-                <property name="title" translatable="yes">Data Diagnosis</property>
+                <property name="title" translatable="yes">Data Riwayat Pasien</property>
                 <property name="position">1</property>
               </packing>
             </child>
