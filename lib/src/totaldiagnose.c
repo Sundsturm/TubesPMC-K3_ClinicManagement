@@ -1,7 +1,4 @@
-#include "../include/workwithdata.h"
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
+#include "../include/totaldiagnose.h"
 
 int findMax(Diagnosis* list_dx) {
     int idx = 0;
@@ -55,22 +52,7 @@ void findYear(Diagnosis* list_dx, int* min_year, int* max_year) {
     *max_year = mx;
 }
 
-typedef struct data{
-    char diagnose[MAX_STRING];
-    int total;
-}Data;
-
-struct Tahun{
-    int year;
-    Data* diagnoses;
-};
-
-struct Bulan {
-    char bulan[MAX_STRING];
-    Data* diagnoses;
-};
-
-void allYear(Diagnosis *list_dx, struct Tahun** years, int* total_year, int* total_diagnose) {
+void allYear(Diagnosis *list_dx,  Tahun** years, int* total_year, int* total_diagnose) {
     int idx, min_year, max_year; 
     const int mx = findMax(list_dx); // find maximal diagnose
     char diagnose [mx][MAX_STRING]; 
@@ -79,7 +61,7 @@ void allYear(Diagnosis *list_dx, struct Tahun** years, int* total_year, int* tot
     findYear(list_dx, &min_year, &max_year);
 
     const int Y = max_year - min_year + 1;
-    struct Tahun* current_year = (struct Tahun*)malloc(Y * sizeof(struct Tahun));
+     Tahun* current_year = ( Tahun*)malloc(Y * sizeof( Tahun));
     *years = current_year;
     *total_year = Y;
     *total_diagnose = idx;
@@ -120,7 +102,7 @@ void allYear(Diagnosis *list_dx, struct Tahun** years, int* total_year, int* tot
     }
 }
 
-void perYear(Diagnosis *list_dx, int year, struct Bulan** bulan, int* total_diagnose) {
+void perYear(Diagnosis *list_dx, int year,  Bulan** bulan, int* total_diagnose) {
     int idx, min_year, max_year; 
     const int mx = findMax(list_dx); // find maximal diagnose
     char diagnose [mx][MAX_STRING]; 
@@ -131,7 +113,7 @@ void perYear(Diagnosis *list_dx, int year, struct Bulan** bulan, int* total_diag
         puts("Data tidak ada\n");
         return;
     }
-    *bulan = (struct Bulan*)malloc(12 * sizeof(struct Bulan));
+    *bulan = ( Bulan*)malloc(12 * sizeof( Bulan));
     *total_diagnose = idx;
     Diagnosis* current_diagnose = list_dx;
     for(int b = 0; b < 12; ++b) {
@@ -170,7 +152,7 @@ void perYear(Diagnosis *list_dx, int year, struct Bulan** bulan, int* total_diag
     }
 }
 
-void perMonth(Diagnosis *list_dx, int year, char month[], Data** bulan, int* total_diagnose) {
+void perMonth(Diagnosis *list_dx, int year, char *month, Data** bulan, int* total_diagnose) {
     int idx, min_year, max_year; 
     const int mx = findMax(list_dx); // find maximal diagnose
     char diagnose [mx][MAX_STRING];

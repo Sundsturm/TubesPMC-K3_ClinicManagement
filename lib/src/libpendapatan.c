@@ -67,29 +67,12 @@ float rataRataPendapatanPerTahun(Diagnosis* headDiagnosis, BiayaPengobatan* head
     }
 }
 
-void rataRataPendapatan(Diagnosis* headDiagnosis,BiayaPengobatan* headBiayaPengobatan ){
- // Contoh penggunaan fungsi totalPendapatanBulanan
-    char bulan[15];
-    int tahun;
-
-    // Input bulan dan tahun untuk rata-rata pendapatan
-    printf("Masukkan bulan : ");
-    scanf("%s", bulan);
-    printf("Masukkan tahun: ");
-    scanf("%d", &tahun);
-
-    // Cetak informasi total pendapatan bulanan
-    printf("\nInformasi Pendapatan Bulan %s %d:\n", bulan, tahun);
+char* rataRataPendapatan(Diagnosis* headDiagnosis,BiayaPengobatan* headBiayaPengobatan, char *bulan, int tahun){
+    char *message = (char*)malloc(MAX_STRING*sizeof(char));
     int totalBulanan = totalPendapatanBulanan(headDiagnosis, headBiayaPengobatan, bulan, tahun);
-    printf("Total Pendapatan Bulan: Rp %d\n", totalBulanan);
-
-    // Cetak informasi total pendapatan tahunan
-    printf("\nInformasi Pendapatan Tahun %d:\n", tahun);
     int totalTahunan = totalPendapatanTahunan(headDiagnosis, headBiayaPengobatan, tahun);
-    printf("Total Pendapatan Tahun: Rp %d\n", totalTahunan);
-
-    // Cetak informasi rata-rata pendapatan per tahun
-    printf("\nInformasi Rata-rata Pendapatan per Transaksi Tahun %d:\n", tahun);
     float rataRata = rataRataPendapatanPerTahun(headDiagnosis, headBiayaPengobatan, tahun);
-    printf("Rata-rata Pendapatan per Transaksi: Rp %.2f\n", rataRata);
+    snprintf(message, MAX_STRING, "Informasi Pendapatan Bulan %s %d:\nTotal Pendapatan Bulan: Rp %d\n\nInformasi Pendapatan Tahun %d:\nTotal Pendapatan Tahun: Rp %d\n\nInformasi Rata-rata Pendapatan per Transaksi Tahun %d:\nRata-rata Pendapatan per Transaksi: Rp %.2f\n",
+    bulan, tahun, totalBulanan, tahun, totalTahunan, tahun, rataRata);
+    return message;
 }

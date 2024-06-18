@@ -434,6 +434,34 @@
       </object>
     </child>
   </object>
+  <object class="GtkListStore" id="list_penyakit_bulan">
+    <columns>
+      <!-- column-name Bulan -->
+      <column type="gchararray"/>
+      <!-- column-name Diagnosis -->
+      <column type="gchararray"/>
+      <!-- column-name Total -->
+      <column type="gint"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="list_penyakit_spes">
+    <columns>
+      <!-- column-name Diagnosis -->
+      <column type="gchararray"/>
+      <!-- column-name Total -->
+      <column type="gint"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="list_penyakit_tahun">
+    <columns>
+      <!-- column-name Tahun -->
+      <column type="gint"/>
+      <!-- column-name Diagnosis -->
+      <column type="gchararray"/>
+      <!-- column-name gint1 -->
+      <column type="gint"/>
+    </columns>
+  </object>
   <object class="GtkWindow" id="pasien_kontrol_form">
     <property name="can-focus">False</property>
     <child>
@@ -524,34 +552,16 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkButton" id="create_stack_1">
+                      <object class="GtkButton" id="delete_stack_1">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_create_stack_1_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on_delete_stack_1_clicked" swapped="no"/>
                         <child>
-                          <object class="GtkImage" id="create_icon_1">
+                          <object class="GtkImage" id="delete_icon_1">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-plus-16.png</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="search_stack_1">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_search_stack_1_clicked" swapped="no"/>
-                        <child>
-                          <object class="GtkImage" id="search_icon_1">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-search-16.png</property>
+                            <property name="pixbuf">../assets\icons8-delete-16.png</property>
                           </object>
                         </child>
                       </object>
@@ -578,16 +588,34 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="delete_stack_1">
+                      <object class="GtkButton" id="search_stack_1">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_delete_stack_1_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on_search_stack_1_clicked" swapped="no"/>
                         <child>
-                          <object class="GtkImage" id="delete_icon_1">
+                          <object class="GtkImage" id="search_icon_1">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-delete-16.png</property>
+                            <property name="pixbuf">../assets\icons8-search-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="create_stack_1">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_create_stack_1_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="create_icon_1">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-plus-16.png</property>
                           </object>
                         </child>
                       </object>
@@ -671,34 +699,16 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkButton" id="create_stack_2">
+                      <object class="GtkButton" id="delete_stack_2">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_create_stack_2_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on_delete_stack_2_clicked" swapped="no"/>
                         <child>
-                          <object class="GtkImage" id="create_icon_2">
+                          <object class="GtkImage" id="delete_icon_2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-plus-16.png</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="search_stack_2">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_search_stack_2_clicked" swapped="no"/>
-                        <child>
-                          <object class="GtkImage" id="search_icon_2">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-search-16.png</property>
+                            <property name="pixbuf">../assets\icons8-delete-16.png</property>
                           </object>
                         </child>
                       </object>
@@ -725,16 +735,34 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="delete_stack_2">
+                      <object class="GtkButton" id="search_stack_2">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
-                        <signal name="clicked" handler="on_delete_stack_2_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on_search_stack_2_clicked" swapped="no"/>
                         <child>
-                          <object class="GtkImage" id="delete_icon_2">
+                          <object class="GtkImage" id="search_icon_2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="pixbuf">../assets\icons8-delete-16.png</property>
+                            <property name="pixbuf">../assets\icons8-search-16.png</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="create_stack_2">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_create_stack_2_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="create_icon_2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="pixbuf">../assets\icons8-plus-16.png</property>
                           </object>
                         </child>
                       </object>
@@ -947,12 +975,53 @@
                 <child>
                   <object class="GtkTextView" id="textview_pasien_penyakit">
                     <property name="width-request">620</property>
-                    <property name="height-request">520</property>
+                    <property name="height-request">120</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                   </object>
                   <packing>
+                    <property name="y">532</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkTreeView" id="treeview_pasien_penyakit">
+                    <property name="name">treeview_pasien_penyakit</property>
+                    <property name="width-request">620</property>
+                    <property name="height-request">480</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
+                  </object>
+                  <packing>
                     <property name="y">52</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButtonBox" id="button_box_penyakit">
+                    <property name="width-request">100</property>
+                    <property name="height-request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="layout-style">start</property>
+                    <child>
+                      <object class="GtkButton" id="next_penyakit">
+                        <property name="label" translatable="yes">Next</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">58</property>
+                    <property name="y">-16</property>
                   </packing>
                 </child>
               </object>
@@ -1273,6 +1342,7 @@ Masukkan Tindakan		:</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="max-length">256</property>
+            <property name="placeholder-text" translatable="yes">Format: DD Bulan YYYY</property>
             <signal name="changed" handler="on_entry_changed" swapped="no"/>
           </object>
           <packing>
@@ -1286,6 +1356,7 @@ Masukkan Tindakan		:</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="max-length">256</property>
+            <property name="placeholder-text" translatable="yes">Format: KX ...</property>
             <signal name="changed" handler="on_entry_changed" swapped="no"/>
           </object>
           <packing>
@@ -1299,6 +1370,7 @@ Masukkan Tindakan		:</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="max-length">256</property>
+            <property name="placeholder-text" translatable="yes">Contoh: Masuk Angin</property>
             <signal name="changed" handler="on_entry_changed" swapped="no"/>
           </object>
           <packing>
@@ -1312,6 +1384,7 @@ Masukkan Tindakan		:</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="max-length">256</property>
+            <property name="placeholder-text" translatable="yes">Contoh: Pemasangan infus</property>
             <signal name="changed" handler="on_entry_changed" swapped="no"/>
           </object>
           <packing>
@@ -1358,6 +1431,7 @@ Masukkan No. BPJS			:</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="max-length">256</property>
+            <property name="placeholder-text" translatable="yes">Contoh: Budi Maknyus</property>
             <signal name="changed" handler="on_entry_changed" swapped="no"/>
           </object>
           <packing>
@@ -1371,6 +1445,7 @@ Masukkan No. BPJS			:</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="max-length">256</property>
+            <property name="placeholder-text" translatable="yes">Contoh: Jl. Menuju Surga No. 12</property>
             <signal name="changed" handler="on_entry_changed" swapped="no"/>
           </object>
           <packing>
@@ -1384,6 +1459,7 @@ Masukkan No. BPJS			:</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="max-length">256</property>
+            <property name="placeholder-text" translatable="yes">Contoh: Kota Jakarta Adem</property>
             <signal name="changed" handler="on_entry_changed" swapped="no"/>
           </object>
           <packing>
@@ -1397,6 +1473,7 @@ Masukkan No. BPJS			:</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="max-length">256</property>
+            <property name="placeholder-text" translatable="yes">Contoh: Sumedang</property>
             <signal name="changed" handler="on_entry_changed" swapped="no"/>
           </object>
           <packing>
@@ -1410,6 +1487,7 @@ Masukkan No. BPJS			:</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="max-length">256</property>
+            <property name="placeholder-text" translatable="yes">Format: DD Bulan YYYY</property>
             <signal name="changed" handler="on_entry_changed" swapped="no"/>
           </object>
           <packing>
@@ -1423,6 +1501,7 @@ Masukkan No. BPJS			:</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="max-length">256</property>
+            <property name="placeholder-text" translatable="yes">Contoh: 1</property>
             <signal name="changed" handler="on_entry_changed" swapped="no"/>
           </object>
           <packing>
@@ -1436,6 +1515,7 @@ Masukkan No. BPJS			:</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="max-length">256</property>
+            <property name="placeholder-text" translatable="yes">Contoh: 1111111111</property>
             <signal name="changed" handler="on_entry_changed" swapped="no"/>
           </object>
           <packing>
@@ -1644,7 +1724,7 @@ Masukkan No. BPJS			:</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
-          <object class="GtkButton" id="pendapatan_submit1">
+          <object class="GtkButton" id="pendapatan_submit">
             <property name="label" translatable="yes">Submit</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
@@ -1656,7 +1736,7 @@ Masukkan No. BPJS			:</property>
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="pendapatan_bulan_label1">
+          <object class="GtkLabel" id="pendapatan_bulan_label">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="label" translatable="yes">Masukkan bulan:</property>
@@ -1667,7 +1747,7 @@ Masukkan No. BPJS			:</property>
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="bulan_pendapatan_entry1">
+          <object class="GtkEntry" id="bulan_pendapatan_entry">
             <property name="width-request">220</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
@@ -1680,7 +1760,7 @@ Masukkan No. BPJS			:</property>
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="pendapatan_tahun_label1">
+          <object class="GtkLabel" id="pendapatan_tahun_label">
             <property name="width-request">100</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -1692,7 +1772,7 @@ Masukkan No. BPJS			:</property>
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="tahun_pendapatan_entry1">
+          <object class="GtkEntry" id="tahun_pendapatan_entry">
             <property name="width-request">220</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>

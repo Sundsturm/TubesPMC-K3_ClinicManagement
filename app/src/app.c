@@ -77,6 +77,7 @@ GtkFileChooserButton* file_chooser_dx;
 GtkFileChooserButton* file_chooser_biaya;
 GtkButton* button_save;
 GtkButton* button_clear_list;
+GtkButton* next_penyakit;
 
 // Global variables of labels
 GtkLabel* choose_diagnosis_label;
@@ -121,6 +122,7 @@ GtkTextView* filtered_pasien_data;
 GtkTreeView* filtered_diagnosis_list;
 GtkTextView* textview_pasien_penyakit;
 GtkTextView* textview_pendapatan;
+GtkTreeView* treeview_pasien_penyakit;
 
 // Global variables for images
 GtkImage* delete_icon_1;
@@ -150,6 +152,9 @@ GtkListStore *diagnosis_list;
 GtkListStore *pasien_list;
 GtkListStore *filter_px_list;
 GtkListStore *filter_dx_list;
+GtkListStore *list_penyakit_tahun;
+GtkListStore *list_penyakit_bulan;
+GtkListStore *list_penyakit_spes;
 
 // Global variables for checking
 gchar* edit_search_delete_pasien_check;
@@ -165,6 +170,9 @@ Diagnosis *list_diagnosis;
 // Global variables for structs
 Diagnosis* filtered_diag;
 Pasien* filtered_pasien;
+Tahun* penyakit_tahun;
+Bulan* penyakit_bulan;
+Data* penyakit_spec;
 
 // Global variables for list loaders
 int list_pasien_riwayat_loader;
@@ -180,9 +188,36 @@ int list_dx;
 int px_search;
 int dx_search;
 int px_riwayat;
+int count_tahun;
+int count_diag;
+int curr_penyakit;
 
 // GUI function and procedures
 // Handler to hide the window instead of destroying it
+void append_to_textview(char *message, GtkTextView* tv){
+	GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(tv));
+	GtkTextIter iter;
+
+	gtk_text_buffer_get_end_iter(buffer, &iter);
+	gtk_text_buffer_insert(buffer, &iter, message, -1);
+}
+
+void clear_textview(GtkTextView *text_view){
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(text_view);
+    GtkTextIter start_iter, end_iter;
+    gtk_text_buffer_get_start_iter(buffer, &start_iter);
+    gtk_text_buffer_get_end_iter(buffer, &end_iter);
+    gtk_text_buffer_delete(buffer, &start_iter, &end_iter);
+}
+
+void remove_all_cols(GtkTreeView *tree_view){
+    gint num_columns = gtk_tree_view_get_n_columns(tree_view);
+    for (gint i = num_columns - 1; i >= 0; i--) {
+        GtkTreeViewColumn *column = gtk_tree_view_get_column(tree_view, i);
+        gtk_tree_view_remove_column(tree_view, column);
+    }
+}
+
 gboolean on_window_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data) {
     gtk_widget_hide(widget);
     return TRUE;  // Prevents the default handler from running
@@ -244,6 +279,93 @@ void create_cols_dx(GtkTreeView *tree_view){
 	rend_dx = gtk_cell_renderer_text_new();
 	col_dx = gtk_tree_view_column_new_with_attributes("Biaya (Rp)", rend_dx, "text", 6, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(tree_view), col_dx);
+}
+
+void create_cols_one(GtkTreeView *treev){
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn * column;
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("Tahun", renderer, "text", 0, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(treev), column);
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("Diagnosis", renderer, "text", 1, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(treev), column);
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("Total", renderer, "text", 2, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(treev), column);
+}
+
+void create_cols_two(GtkTreeView *treev){
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn * column;
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("Bulan", renderer, "text", 0, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(treev), column);
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("Diagnosis", renderer, "text", 1, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(treev), column);
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("Total", renderer, "text", 2, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(treev), column);
+}
+
+void create_cols_three(GtkTreeView *treev){
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn * column;
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("Diagnosis", renderer, "text", 0, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(treev), column);
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("Total", renderer, "text", 1, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(treev), column);
+}
+
+void populate_list_modeone(GtkListStore* list_store, Tahun *list_one, int len_tahun, int len_diagnose) {
+	GtkTreeIter iter;
+	gtk_list_store_clear(list_store);
+	Tahun *temp = list_one;
+
+	for(int i = 0; i < len_tahun; i++){
+		for(int j = 0; j < len_diagnose; j++){
+			gtk_list_store_append(list_store, &iter);
+			gtk_list_store_set(list_store, &iter,
+				0, temp[i].year,
+				1, temp[i].diagnoses[j].diagnose,
+				2, temp[i].diagnoses[j].total,
+				-1);
+		}
+	}
+}
+
+void populate_list_modetwo(GtkListStore* list_store, Bulan *list_one, int len_diagnose, int *curr_x) {
+	GtkTreeIter iter;
+	gtk_list_store_clear(list_store);
+	Bulan *temp = list_one;
+	if(*curr_x == 12){
+		*curr_x = 0;
+	}
+	for(int j = 0; j < len_diagnose; j++){
+		gtk_list_store_append(list_store, &iter);
+		gtk_list_store_set(list_store, &iter,
+			0, temp[*curr_x].bulan,
+			1, temp[*curr_x].diagnoses[j].diagnose,
+			2, temp[*curr_x].diagnoses[j].total,
+			-1);
+	}
+	++(*curr_x);
+}
+
+void populate_list_modethree(GtkListStore* list_store, Data *list_one, int len_diagnose) {
+	GtkTreeIter iter;
+	gtk_list_store_clear(list_store);
+	Data *temp = list_one;
+	for(int j = 0; j < len_diagnose; j++){
+		gtk_list_store_append(list_store, &iter);
+		gtk_list_store_set(list_store, &iter,
+			0, temp[j].diagnose,
+			1, temp[j].total,
+			-1);
+	}
 }
 
 void populate_list_pasien(GtkListStore* list_store, Pasien* list_pt, int len_pt, int *curr_id_px, int cond_prev_next) {
@@ -410,6 +532,7 @@ void on_add_pasien_submit_clicked (GtkButton*  b, gpointer user_data){
 void on_tanggal_kunjungan_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(b))){
 		strcpy(edit_search_delete_diagnosis_check, (char*)gtk_button_get_label(GTK_BUTTON(b)));
+		gtk_entry_set_placeholder_text(GTK_ENTRY(value_diagnosis_entry), "Format: DD Bulan YYYY");
 	} else {
 		g_print("Tanggal Kunjungan tidak aktif!\n");
 	}
@@ -418,6 +541,7 @@ void on_tanggal_kunjungan_sel_radio_toggled (GtkRadioButton*  b, gpointer user_d
 void on_id_pasien_sel_diagnosis_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(b))){
 		strcpy(edit_search_delete_diagnosis_check, (char*)gtk_button_get_label(GTK_BUTTON(b)));
+		gtk_entry_set_placeholder_text(GTK_ENTRY(value_diagnosis_entry), "Format: KX ...");
 	} else {
 		g_print("ID Pasien tidak aktif!\n");
 	}
@@ -426,6 +550,7 @@ void on_id_pasien_sel_diagnosis_radio_toggled (GtkRadioButton*  b, gpointer user
 void on_diagnosis_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(b))){
 		strcpy(edit_search_delete_diagnosis_check, (char*)gtk_button_get_label(GTK_BUTTON(b)));
+		gtk_entry_set_placeholder_text(GTK_ENTRY(value_diagnosis_entry), "Contoh: Masuk Angin");
 	} else {
 		g_print("Diagnosis tidak aktif!\n");
 	}
@@ -434,6 +559,7 @@ void on_diagnosis_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 void on_tindakan_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(b))){
 		strcpy(edit_search_delete_diagnosis_check, (char*)gtk_button_get_label(GTK_BUTTON(b)));
+		gtk_entry_set_placeholder_text(GTK_ENTRY(value_diagnosis_entry), "Contoh: Pemasangan infus");
 	} else {
 		g_print("Tindakan tidak aktif!\n");
 	}
@@ -448,6 +574,7 @@ void on_value_diagnosis_submit_clicked (GtkButton*  b, gpointer user_data){
 void on_nama_lengkap_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(b))){
 		strcpy(edit_search_delete_pasien_check, (char*)gtk_button_get_label(GTK_BUTTON(b)));
+		gtk_entry_set_placeholder_text(GTK_ENTRY(value_pasien_entry), "Contoh: Budi Maknyus");
 	} else {
 		g_print("Nama Lengkap tidak aktif!\n");
 	}
@@ -456,6 +583,7 @@ void on_nama_lengkap_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 void on_alamat_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(b))){
 		strcpy(edit_search_delete_pasien_check, (char*)gtk_button_get_label(GTK_BUTTON(b)));
+		gtk_entry_set_placeholder_text(GTK_ENTRY(value_pasien_entry), "Contoh: Jl. Menuju Surga No. 12");
 	} else {
 		g_print("Alamat tidak aktif!\n");
 	}
@@ -464,6 +592,7 @@ void on_alamat_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 void on_kota_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(b))){
 		strcpy(edit_search_delete_pasien_check, (char*)gtk_button_get_label(GTK_BUTTON(b)));
+		gtk_entry_set_placeholder_text(GTK_ENTRY(value_pasien_entry), "Contoh: Kota Jakarta Adem");
 	} else {
 		g_print("Kota tidak aktif!\n");
 	}
@@ -472,6 +601,7 @@ void on_kota_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 void on_tempat_lahir_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(b))){
 		strcpy(edit_search_delete_pasien_check, (char*)gtk_button_get_label(GTK_BUTTON(b)));
+		gtk_entry_set_placeholder_text(GTK_ENTRY(value_pasien_entry), "Contoh: Sumedang");
 	} else {
 		g_print("Tempat Lahir tidak aktif!\n");
 	}
@@ -480,6 +610,7 @@ void on_tempat_lahir_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 void on_tanggal_lahir_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(b))){
 		strcpy(edit_search_delete_pasien_check, (char*)gtk_button_get_label(GTK_BUTTON(b)));
+		gtk_entry_set_placeholder_text(GTK_ENTRY(value_pasien_entry), "Format: DD Bulan YYYY");
 	} else {
 		g_print("Tanggal Lahir tidak aktif!\n");
 	}
@@ -488,6 +619,7 @@ void on_tanggal_lahir_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data)
 void on_umur_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(b))){
 		strcpy(edit_search_delete_pasien_check, (char*)gtk_button_get_label(GTK_BUTTON(b)));
+		gtk_entry_set_placeholder_text(GTK_ENTRY(value_pasien_entry), "Contoh: 1");
 	} else {
 		g_print("Umur tidak aktif!\n");
 	}
@@ -496,6 +628,7 @@ void on_umur_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 void on_bpjs_sel_radio_toggled (GtkRadioButton*  b, gpointer user_data){
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(b))){
 		strcpy(edit_search_delete_pasien_check, (char*)gtk_button_get_label(GTK_BUTTON(b)));
+		gtk_entry_set_placeholder_text(GTK_ENTRY(value_pasien_entry), "Contoh: 1111111111");
 	} else {
 		g_print("No. BPJS tidak aktif!\n");
 	}
@@ -606,10 +739,10 @@ void on_button_pasien_kontrol_clicked (GtkButton* b, gpointer user_data){
 
 void on_button_pasien_penyakit_clicked (GtkButton* b, gpointer user_data){
 	gtk_window_present(pasien_penyakit_form);
-	gtk_label_set_text(GTK_LABEL(pasien_penyakit_mode3_label), (const gchar*) " ");
-	gtk_label_set_text(GTK_LABEL(pasien_penyakit_mode_bulan_tahun_label), (const gchar*) " ");
-	gtk_widget_hide(GTK_WIDGET(pasien_penyakit_mode_bulan_tahun_entry));
 	gtk_widget_hide(GTK_WIDGET(pasien_penyakit_mode3_entry));
+	gtk_widget_hide(GTK_WIDGET(pasien_penyakit_mode_bulan_tahun_entry));
+	gtk_label_set_text(GTK_LABEL(pasien_penyakit_mode3_label), "");
+	gtk_label_set_text(GTK_LABEL(pasien_penyakit_mode_bulan_tahun_label), "");
 }
 
 void on_button_pendapatan_clicked (GtkButton *b, gpointer user_data){
@@ -625,7 +758,13 @@ void on_pasien_kontrol_submit_clicked (GtkButton *b, gpointer user_data){
 }
 
 void on_pendapatan_submit_clicked (GtkButton *b, gpointer user_data){
-
+	char *message = (char*)malloc(MAX_STRING*sizeof(char));
+	message = rataRataPendapatan(list_diagnosis, list_biayapengobatan, (char*)(gtk_entry_get_text(GTK_ENTRY(bulan_pendapatan_entry))), atoi((char*)(gtk_entry_get_text(GTK_ENTRY(tahun_pendapatan_entry)))));
+	append_to_textview(message, GTK_TEXT_VIEW(textview_pendapatan));
+	gtk_entry_set_text(GTK_ENTRY(bulan_pendapatan_entry), "");
+	gtk_entry_set_text(GTK_ENTRY(tahun_pendapatan_entry), "");
+	gtk_widget_hide(GTK_WIDGET(pendapatan_form));
+	free(message);
 }
 
 void on_ID_Pasien_diagnosis_element_radio_toggled (GtkRadioButton* b, gpointer user_data){
@@ -752,30 +891,53 @@ void on_pasien_penyakit_mode3_toggled (GtkRadioButton* b, gpointer user_data){
 }
 
 void on_pasien_penyakit_submit_clicked (GtkButton *b, gpointer user_data){
-
+	char* message;
+	count_tahun = 0;
+	count_diag = 0;
+	curr_penyakit = 0;
+	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pasien_penyakit_mode1))){
+		message = (char*)malloc(MAX_STRING*sizeof(char));
+		gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_pasien_penyakit), GTK_TREE_MODEL(list_penyakit_tahun));
+		allYear(list_diagnosis, &penyakit_tahun, &count_tahun, &count_diag);
+		populate_list_modeone(list_penyakit_tahun, penyakit_tahun, count_tahun, count_diag);
+		create_cols_one(GTK_TREE_VIEW(treeview_pasien_penyakit));
+		snprintf(message, MAX_STRING, "Total tahun yang tercatat: %d\nTotal penyakit yang terdiagnosis: %d\n", count_tahun, count_diag);
+		append_to_textview(message, GTK_TEXT_VIEW(textview_pasien_penyakit));
+	} else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pasien_penyakit_mode2))){
+		message = (char*)malloc(MAX_STRING*sizeof(char));
+		gtk_widget_show(GTK_WIDGET(next_penyakit));
+		gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_pasien_penyakit), GTK_TREE_MODEL(list_penyakit_bulan));
+		create_cols_two(GTK_TREE_VIEW(treeview_pasien_penyakit));
+		perYear(list_diagnosis, atoi((char*)(gtk_entry_get_text(GTK_ENTRY(pasien_penyakit_mode_bulan_tahun_entry)))), &penyakit_bulan, &count_diag);
+		populate_list_modetwo(list_penyakit_bulan, penyakit_bulan, count_diag, &curr_penyakit);
+		snprintf(message, MAX_STRING, "Tahun: %d\nTotal penyakit yang terdiagnosis: %d\n", atoi((char*)(gtk_entry_get_text(GTK_ENTRY(pasien_penyakit_mode_bulan_tahun_entry)))), count_diag);
+		append_to_textview(message, GTK_TEXT_VIEW(textview_pasien_penyakit));
+	} else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pasien_penyakit_mode3))) {
+		message = (char*)malloc(MAX_STRING*sizeof(char));
+		gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_pasien_penyakit), GTK_TREE_MODEL(list_penyakit_spes));
+		create_cols_three(GTK_TREE_VIEW(treeview_pasien_penyakit));
+		perMonth(list_diagnosis, atoi((char*)(gtk_entry_get_text(GTK_ENTRY(pasien_penyakit_mode3_entry)))), (char*)(gtk_entry_get_text(GTK_ENTRY(pasien_penyakit_mode_bulan_tahun_entry))), &penyakit_spec, &count_diag);
+		populate_list_modethree(list_penyakit_spes, penyakit_spec, count_diag);
+		snprintf(message, MAX_STRING, "Bulan dan Tahun: %s %d\nTotal penyakit yang terdiagnosis: %d\n", (char*)(gtk_entry_get_text(GTK_ENTRY(pasien_penyakit_mode_bulan_tahun_entry))), atoi((char*)(gtk_entry_get_text(GTK_ENTRY(pasien_penyakit_mode3_entry)))), count_diag);
+		append_to_textview(message, GTK_TEXT_VIEW(textview_pasien_penyakit));
+	} else {
+		g_print("Opsi tidak terpilih!\n");
+	}
+	gtk_widget_hide(GTK_WIDGET(pasien_penyakit_form));
+	gtk_entry_set_text(GTK_ENTRY(pasien_penyakit_mode_bulan_tahun_entry), "");
+	gtk_entry_set_text(GTK_ENTRY(pasien_penyakit_mode3_entry), "");
+	free(message);
 }
 
-void append_to_textview(char *message){
-	GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(filtered_pasien_data));
-	GtkTextIter iter;
-
-	gtk_text_buffer_get_end_iter(buffer, &iter);
-	gtk_text_buffer_insert(buffer, &iter, message, -1);
-}
-
-void clear_textview(GtkTextView *text_view){
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(text_view);
-    GtkTextIter start_iter, end_iter;
-    gtk_text_buffer_get_start_iter(buffer, &start_iter);
-    gtk_text_buffer_get_end_iter(buffer, &end_iter);
-    gtk_text_buffer_delete(buffer, &start_iter, &end_iter);
+void on_next_penyakit_clicked(GtkButton *b, gpointer user_data){
+	populate_list_modetwo(list_penyakit_bulan, penyakit_bulan, count_diag, &curr_penyakit);
 }
 
 void on_pasien_riwayat_medis_submit_clicked (GtkButton *b, gpointer user_data){
 	char *new_message;
 	strcpy(passing_string, (char*)gtk_entry_get_text(GTK_ENTRY(pasien_riwayat_medis_entry)));
 	new_message = informasiPasienRiwayatMedis(list_pasien, (const char*)gtk_entry_get_text(GTK_ENTRY(pasien_riwayat_medis_entry)));
-	append_to_textview(new_message);
+	append_to_textview(new_message, GTK_TEXT_VIEW(filtered_pasien_data));
 	gtk_widget_hide(GTK_WIDGET(pasien_riwayat_medis_form));
 	gtk_entry_set_text(GTK_ENTRY(pasien_riwayat_medis_entry), "");
 	free(new_message);
@@ -798,19 +960,29 @@ void on_file_chooser_biaya_file_set (GtkFileChooserButton*b, gpointer user_data)
 }
 
 void on_button_save_clicked (GtkButton*b, gpointer user_data){
-	
+	writeCSVDiagnosis("../resources/DataPMC20232024(2).csv", list_diagnosis);
+	writeCSVPasien("../resources/DataPMC20232024(1).csv", list_pasien);
 }
 
 void on_button_clear_list_clicked (GtkButton*b, gpointer user_data){
 	gtk_list_store_clear(GTK_LIST_STORE(filter_dx_list));
 	gtk_list_store_clear(GTK_LIST_STORE(filter_px_list));
+	gtk_list_store_clear(GTK_LIST_STORE(list_penyakit_tahun));
+	gtk_list_store_clear(GTK_LIST_STORE(list_penyakit_bulan));
+	gtk_list_store_clear(GTK_LIST_STORE(list_penyakit_spes));
+	remove_all_cols(GTK_TREE_VIEW(treeview_pasien_penyakit));
 	clear_textview(GTK_TEXT_VIEW(filtered_pasien_data));
+	clear_textview(GTK_TEXT_VIEW(textview_pasien_penyakit));
+	clear_textview(GTK_TEXT_VIEW(textview_pendapatan));
 	px_search = 0;
 	dx_search = 0;
 	px_riwayat = 0;
+	count_tahun = 0;
+	count_diag = 0;
 	curr_idd_search = 0;
 	curr_idp_search = 0;
 	curr_idp_riwayat = 0;
+	gtk_widget_hide(GTK_WIDGET(next_penyakit));
 }
 
 int main(int argc, char *argv[]){
@@ -819,6 +991,9 @@ int main(int argc, char *argv[]){
 	curr_idp_main = 0;
 	list_px = 0;
 	list_dx = 0;
+	penyakit_bulan = NULL;
+	penyakit_tahun = NULL;
+	penyakit_spec = NULL;
 	edit_search_delete_pasien_check = (char*)malloc(MAX_STRING * sizeof(char)); 
 	edit_search_delete_diagnosis_check = (char*)malloc(MAX_STRING * sizeof(char)); 
     passing_string = (char*)malloc(MAX_STRING * sizeof(char));
@@ -916,6 +1091,7 @@ int main(int argc, char *argv[]){
  	file_chooser_biaya = GTK_FILE_CHOOSER_BUTTON(gtk_builder_get_object(builder, "file_chooser_biaya"));
 	button_save = GTK_BUTTON(gtk_builder_get_object(builder, "button_save"));
 	button_clear_list = GTK_BUTTON(gtk_builder_get_object(builder, "button_clear_list"));
+	next_penyakit = GTK_BUTTON(gtk_builder_get_object(builder, "next_penyakit"));
 	g_signal_connect(add_diagnosis_submit, "clicked", G_CALLBACK(on_add_diagnosis_submit_clicked), NULL);
 	g_signal_connect(add_pasien_submit, "clicked", G_CALLBACK(on_add_pasien_submit_clicked), NULL);
 	g_signal_connect(tanggal_kunjungan_sel_radio, "toggled", G_CALLBACK(on_tanggal_kunjungan_sel_radio_toggled), NULL);
@@ -968,6 +1144,7 @@ int main(int argc, char *argv[]){
 	g_signal_connect(file_chooser_biaya, "file-set", G_CALLBACK(on_file_chooser_biaya_file_set), NULL);
 	g_signal_connect(button_save, "clicked", G_CALLBACK(on_button_save_clicked), NULL);
 	g_signal_connect(button_clear_list, "clicked", G_CALLBACK(on_button_clear_list_clicked), NULL);
+	g_signal_connect(next_penyakit, "clicked", G_CALLBACK(on_next_penyakit_clicked), NULL);
 
 	// Entries
 	nama_lengkap_entry = GTK_ENTRY(gtk_builder_get_object(builder, "nama_lengkap_entry"));
@@ -1051,6 +1228,9 @@ int main(int argc, char *argv[]){
 	pasien_list = GTK_LIST_STORE(gtk_builder_get_object(builder, "pasien_list"));
 	filter_px_list = GTK_LIST_STORE(gtk_builder_get_object(builder, "filter_px_list"));
 	filter_dx_list = GTK_LIST_STORE(gtk_builder_get_object(builder, "filter_dx_list"));
+	list_penyakit_tahun = GTK_LIST_STORE(gtk_builder_get_object(builder, "list_penyakit_tahun"));
+	list_penyakit_bulan = GTK_LIST_STORE(gtk_builder_get_object(builder, "list_penyakit_bulan"));
+	list_penyakit_spes = GTK_LIST_STORE(gtk_builder_get_object(builder, "list_penyakit_spes"));
 
 	// Treeview and textview
 	filtered_pasien_riwayat = GTK_TREE_VIEW(gtk_builder_get_object(builder, "filtered_pasien_riwayat"));
@@ -1062,6 +1242,7 @@ int main(int argc, char *argv[]){
 	filtered_diagnosis_list = GTK_TREE_VIEW(gtk_builder_get_object(builder, "filtered_diagnosis_list"));
 	textview_pasien_penyakit = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "textview_pasien_penyakit"));
 	textview_pendapatan = GTK_TEXT_VIEW(gtk_builder_get_object(builder, "textview_pendapatan"));
+	treeview_pasien_penyakit = GTK_TREE_VIEW(gtk_builder_get_object(builder, "treeview_pasien_penyakit"));
 
 	// Set treeviews to corresponding model
 	gtk_tree_view_set_model(GTK_TREE_VIEW(table_search_pasien), GTK_TREE_MODEL(filter_px_list));
@@ -1079,6 +1260,7 @@ int main(int argc, char *argv[]){
 	
 	// Show main window
 	gtk_widget_show_all(GTK_WIDGET(main_window));
+	gtk_widget_hide(GTK_WIDGET(next_penyakit));
 
 	// Main loop
 	gtk_main();

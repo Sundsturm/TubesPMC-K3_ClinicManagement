@@ -5,4 +5,5 @@
 #include "pendapatan.h"
 #include "petugasmedis.h"
 #include "manajemendata.h"
+#include "totaldiagnose.h"
 #endif

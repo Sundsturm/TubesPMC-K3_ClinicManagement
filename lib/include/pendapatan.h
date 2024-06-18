@@ -4,5 +4,5 @@
 int totalPendapatanBulanan(Diagnosis* headDiagnosis, BiayaPengobatan* headBiayaPengobatan, char* bulan, int tahun);
 int totalPendapatanTahunan(Diagnosis* headDiagnosis, BiayaPengobatan* headBiayaPengobatan, int tahun);
 float rataRataPendapatanPerTahun(Diagnosis* headDiagnosis, BiayaPengobatan* headBiayaPengobatan, int tahun);
-void rataRataPendapatan(Diagnosis* headDiagnosis,BiayaPengobatan* headBiayaPengobatan);
+char* rataRataPendapatan(Diagnosis* headDiagnosis,BiayaPengobatan* headBiayaPengobatan, char *bulan, int tahun);
 #endif
