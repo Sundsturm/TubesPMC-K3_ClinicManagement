@@ -1,28 +1,21 @@
 #include "../include/standardclib.h"
 #include "../include/workwithdata.h"
 
-void TambahPasien(Pasien** list_pt){
+void TambahPasien(Pasien** list_pt, char *input_nama_lengkap, char *input_alamat, char* input_kota, char *input_tempat_lahir, char*input_tanggal_lahir, int input_umur, char* input_bpjs, int *count_px){
 	
 	Pasien *PasienBaru = malloc(sizeof(Pasien)) , *templist = *list_pt;
 	int idnum;
 	char id[MAX_STRING];
 	Date temptanggal;
 
-	printf("Nama Pasien: ");
-	scanf("%*c%[^\n]%*c", PasienBaru->nama_lengkap);
-	printf("Alamat: ");
-	scanf("%[^\n]%*c", PasienBaru->alamat);
-	printf("Kota: ");
-	scanf("%[^\n]%*c", PasienBaru->kota);
-	printf("Tempat Lahir: ");
-	scanf("%[^\n]%*c", PasienBaru->tempat_lahir);
-	printf("Tanggal Lahir (dd bulan yyyy): ");
-	scanf("%d %s %d", &temptanggal.hari, temptanggal.bulan, &temptanggal.tahun);
+	strcpy(PasienBaru->nama_lengkap, input_nama_lengkap);
+	strcpy(PasienBaru->alamat, input_alamat);
+	strcpy(PasienBaru->kota, input_kota);
+	strcpy(PasienBaru->tempat_lahir, input_tempat_lahir);
+	assignTanggal(input_tanggal_lahir, &temptanggal);
 	PasienBaru->tanggal_lahir = temptanggal;
-	printf("Umur: ");
-	scanf("%d", &PasienBaru->umur);
-	printf("No. BPJS: ");
-	scanf("%s", PasienBaru->bpjs);
+	PasienBaru->umur = input_umur;
+	strcpy(PasienBaru->bpjs, input_bpjs);
 	strcpy(PasienBaru->id_pasien, "KX ");
 
 	while(templist->next != NULL){
@@ -38,460 +31,135 @@ void TambahPasien(Pasien** list_pt){
 	templist->next = PasienBaru;
 	PasienBaru->prev = templist;
 	PasienBaru->next = NULL;
-
-	printf("\nData pasien berhasil ditambahkan!\n");
-
+	++(*count_px);
 	return;
 }
 
-void NameSearch(Pasien** list_pt){
-	Pasien *templist = *list_pt;
-	char tempstr[MAX_STRING];
-
-	printf("Nama Pasien: ");
-	scanf("%*c%[^\n]%*c", tempstr);
-	printf("\n");
-
-	while(templist != NULL && strcmp(templist->nama_lengkap, tempstr) != 0 ){
+Pasien* NameSearch(Pasien* list_pt, char* nama_lengkap, int *found){
+	Pasien *templist = list_pt;
+	Pasien *filtered = (Pasien*)malloc(sizeof(Pasien));
+	while(templist != NULL && strcmp(templist->nama_lengkap, nama_lengkap) != 0 ){
 		templist = templist->next;
 	}
+	filtered->nomor = templist->nomor;
+	filtered->umur = templist->umur;
+	strcpy(filtered->nama_lengkap, templist->nama_lengkap);
+	strcpy(filtered->alamat, templist->alamat);
+	strcpy(filtered->kota, templist->kota);
+	strcpy(filtered->tempat_lahir, templist->tempat_lahir);
+	strcpy(filtered->bpjs, templist->bpjs);
+	strcpy(filtered->id_pasien, templist->id_pasien);
+	filtered->tanggal_lahir = templist->tanggal_lahir;
 
-	if(templist == NULL){
-		printf("Pasien Tidak Ditemukan!\n");
-	}
-
-	else{
-		printf("Data Pasien:\n\nNama: %s\nID Pasien: %s\nAlamat: %s\nKota: %s\nTempat Lahir: %s\nTanggal Lahir: %d %s %d\nUmur: %d\nNo. BPJS: %s\n", templist->nama_lengkap, templist->id_pasien, templist->alamat, templist->kota, templist->tempat_lahir, templist->tanggal_lahir.hari, templist->tanggal_lahir.bulan, templist->tanggal_lahir.tahun, templist->umur, templist->bpjs);
-	}
-
-	*list_pt = templist;
-
-	return;
+	++(*found);
+	return filtered;
 }
 
-void IDSearch(Pasien** list_pt){
-	Pasien *templist = *list_pt;
-	char tempstr[MAX_STRING];
-
-	printf("ID Pasien: ");
-	scanf("%*c%[^\n]%*c", tempstr);
-	printf("\n");
-
-	strcat(tempstr, "\n");
-
-	while(templist != NULL && strcmp(templist->id_pasien, tempstr) != 0 ){
+Pasien* IDSearch(Pasien* list_pt, char* id_pasien, int*found){
+	Pasien *templist = list_pt;
+	Pasien *filtered = (Pasien*)malloc(sizeof(Pasien));
+	while(templist != NULL && strcmp(templist->id_pasien, id_pasien) != 0 ){
 		templist = templist->next;
 	}
-
-	if(templist == NULL){
-		printf("Pasien Tidak Ditemukan!\n");
-	}
-
-	else{
-		printf("Data Pasien:\n\nNama: %s\nID Pasien: %s\nAlamat: %s\nKota: %s\nTempat Lahir: %s\nTanggal Lahir: %d %s %d\nUmur: %d\nNo. BPJS: %s\n", templist->nama_lengkap, templist->id_pasien, templist->alamat, templist->kota, templist->tempat_lahir, templist->tanggal_lahir.hari, templist->tanggal_lahir.bulan, templist->tanggal_lahir.tahun, templist->umur, templist->bpjs);
-	}
-
-	*list_pt = templist;
-
-	return;
+	filtered->nomor = templist->nomor;
+	filtered->umur = templist->umur;
+	strcpy(filtered->nama_lengkap, templist->nama_lengkap);
+	strcpy(filtered->alamat, templist->alamat);
+	strcpy(filtered->kota, templist->kota);
+	strcpy(filtered->tempat_lahir, templist->tempat_lahir);
+	strcpy(filtered->bpjs, templist->bpjs);
+	strcpy(filtered->id_pasien, templist->id_pasien);
+	filtered->tanggal_lahir = templist->tanggal_lahir;
+	++(*found);
+	return filtered;
 }
 
-void CariPasien(Pasien** list_pt){
-	int opsi, tempjadi;
-	printf("\nMetode Pencarian:\n1. Nama\n2. ID Pasien\n3. Scroll\n0. Kembali\nOpsi: ");
-	scanf("%d", &opsi);
-	printf("\n");
-
-	while(opsi != 0){
-		Pasien *templist = *list_pt;
-		if(opsi == 1){
-			NameSearch(&templist);
-		}
-		else if(opsi == 2){
-			IDSearch(&templist);
-		}
-		else if(opsi == 3){
-			printPasien(templist);
-		}
-		else{
-			printf("Opsi tidak ditemukan!\n");
-		}
-
-		printf("\nMetode Pencarian:\n1. Nama\n2. ID Pasien\n3. Scroll\n0. Kembali\nOpsi: ");
-		scanf("%d", &opsi);
-		printf("\n");
-
-	}
-	return;
-}
-
-void UbahDataPasien(Pasien** list_pt){
-	
+void UbahDataPasien(Pasien** list_pt, char *input, char *opsi, int pos){
 	Date temptanggal;
-	int opsi, tempint;
-	char tempstr[MAX_STRING];
-
-	printf("Pilih Data yang ingin diubah:\n1. Nama Lengkap\n2. Alamat\n3. Kota\n4. Tempat Lahir\n5. Tanggal Lahir\n6. Umur\n7. No BPJS\n0. Kembali\nOpsi: ");
-	scanf("%d", &opsi);
-	printf("\n\n");
-
-	while(opsi != 0){
-		Pasien *templist = *list_pt;
-		if(opsi == 1){
-			printf("Nama Lengkap: ");
-			scanf("%*c%[^\n]%*c", tempstr);
-			printf("\n\n");
-
-			strcpy(templist->nama_lengkap, tempstr); 
-
-			printf("Data berhasil diubah!");
-		}
-		else if(opsi == 2){
-			printf("Alamat: ");
-			scanf("%*c%[^\n]%*c", tempstr);
-			printf("\n\n");
-
-			strcpy(templist->alamat, tempstr); 
-
-			printf("Data berhasil diubah!");
-		}
-		else if(opsi == 3){
-			printf("Kota: ");
-			scanf("%*c%[^\n]%*c", tempstr);
-			printf("\n\n");
-
-			strcpy(templist->kota, tempstr); 
-
-			printf("Data berhasil diubah!");
-
-		}
-		else if(opsi == 4){
-			printf("Tempat Lahir: ");
-			scanf("%*c%[^\n]%*c", tempstr);
-			printf("\n\n");
-
-			strcpy(templist->tempat_lahir, tempstr); 
-
-			printf("Data berhasil diubah!");
-
-		}
-		else if(opsi == 5){
-			printf("Tanggal Lahir (dd bulan yyyy): ");
-			scanf("%d %s %d", &temptanggal.hari, temptanggal.bulan, &temptanggal.tahun);
-			printf("\n\n");
-
-			templist->tanggal_lahir = temptanggal;
-
-			printf("Data berhasil diubah!");
-		}
-		else if(opsi == 6){
-			printf("Tempat Lahir: ");
-			scanf("%d", tempint);
-			printf("\n\n");
-
-			templist->umur = tempint; 
-
-			printf("Data berhasil diubah!");
-		}
-		else if(opsi == 7){
-			printf("No. BPJS: ");
-			scanf("%s", tempstr);
-			printf("\n\n");
-
-			strcpy(templist->bpjs, tempstr);  
-
-			printf("Data berhasil diubah!");
-		}
-		else{
-			printf("Opsi tidak ditemukan!\n");
-		}
-
-		printf("Data Pasien:\n\nNama: %s\nID Pasien: %s\nAlamat: %s\nKota: %s\nTempat Lahir: %s\nTanggal Lahir: %d %s %d\nUmur: %d\nNo. BPJS: %s\n\n", templist->nama_lengkap, templist->id_pasien, templist->alamat, templist->kota, templist->tempat_lahir, templist->tanggal_lahir.hari, templist->tanggal_lahir.bulan, templist->tanggal_lahir.tahun, templist->umur, templist->bpjs);
-
-		*list_pt = templist;
-
-		printf("Pilih Data yang ingin diubah:\n1. Nama Lengkap\n2. Alamat\n3. Kota\n4. Tempat Lahir\n5. Tanggal Lahir\n6. Umur\n7. No BPJS\n0. Kembali\nOpsi: ");
-		scanf("%d", &opsi);
-		printf("\n\n");
-	}
-
-	return;
-}
-
-void UbahPasien(Pasien** list_pt){
 	Pasien *templist = *list_pt;
-	int opsi, opsi2 = 0, counter = 0;
-	printf("\nMetode Pencarian:\n1. Nama\n2. ID Pasien\n3. Tampil semuanya\n0. Kembali\nOpsi: ");
-	scanf("%d", &opsi);
-	printf("\n");
-
 	while(templist != NULL){
+		if(templist->nomor == pos){
+			break;
+		}
 		templist = templist->next;
-		counter++;
 	}
-
-
-	while(opsi != 0){
-		opsi2 = 0;
-		templist = malloc(sizeof(Pasien));
-		templist = *list_pt;
-
-		if(opsi == 1){
-			NameSearch(&templist);
-			if(templist != NULL){				
-				UbahDataPasien(&templist);
-			}
-		}
-
-		else if(opsi == 2){
-			IDSearch(&templist);
-			if(templist != NULL){
-				UbahDataPasien(&templist);
-			}
-		}
-
-		else if(opsi == 3){
-			printPasien(templist);
-			printf("Pilih nomor pasien yang ingin diatur: ");
-			scanf("%d", &opsi2);
-			printf("\n");
-
-			while(opsi2 < 1 || opsi2 > counter){
-				printf("Opsi tidak ditemukan!\n");
-				printf("Pilih nomor pasien yang ingin diatur: ");
-				scanf("%d", &opsi2);
-				printf("\n");
-			}
-			
-			templist = malloc(sizeof(Pasien));
-			templist = *list_pt;
-
-			while(templist->nomor != opsi2){
-				templist = templist->next;
-			}
-			UbahDataPasien(&templist);
-
-		}
-
-		else{
-			printf("Opsi tidak ditemukan!\n");
-		}
-
-		printf("\nMetode Pencarian:\n1. Nama\n2. ID Pasien\n3. Tampil semuanya\n0. Kembali\nOpsi: ");
-		scanf("%d", &opsi);
-		printf("\n");
-
+	if(strcmp(opsi, "Nama Lengkap") == 0){
+		strcpy(templist->nama_lengkap, input); 
+		printf("Data berhasil diubah!");
 	}
-
-	return;
-}
-
-void HapusDataPasien(Pasien** list_pt, Pasien *target){
-	Pasien *templist = *list_pt;
-	int counter = 1;
-	if(target->next == NULL){
-		while(templist->next->next != NULL){
-			templist = templist->next;
-		}
-		templist->next = NULL;
+	else if(strcmp(opsi, "Alamat") == 0){
+		strcpy(templist->alamat, input); 
+		printf("Data berhasil diubah!");
 	}
-	else if(target->prev == NULL){
-		templist = templist->next;
-		templist->prev = NULL;
-		*list_pt = templist;
+	else if(strcmp(opsi, "Kota") == 0){
+		strcpy(templist->kota, input); 
+		printf("Data berhasil diubah!");
+	}
+	else if(strcmp(opsi, "Tempat Lahir") == 0){
+		strcpy(templist->tempat_lahir, input); 
+		printf("Data berhasil diubah!");
+	}
+	else if(strcmp(opsi, "Tanggal Lahir") == 0){
+		assignTanggal(input, &temptanggal);
+		templist->tanggal_lahir = temptanggal;
+		printf("Data berhasil diubah!");
+	}
+	else if(strcmp(opsi, "Umur") == 0){
+		templist->umur = atoi(input); 
+		printf("Data berhasil diubah!");
+	}
+	else if(strcmp(opsi, "No. BPJS") == 0){
+		strcpy(templist->bpjs, input);  
+		printf("Data berhasil diubah!");
 	}
 	else{
-		while(templist->next != target){
-			templist = templist->next;
+		printf("Opsi tidak ditemukan!\n");
+	}
+	return;
+}
+
+void HapusDataPasien(Pasien** list_pt, int num){
+	Pasien *temp = *list_pt;
+	if (temp== NULL) {
+        return;
+    }
+
+	while((temp) != NULL){
+		if(temp->nomor == num){
+			break;
 		}
-		templist->next->next->prev = templist;
-		templist->next = templist->next->next;
+		temp = temp->next;
 	}
+    
+	if (temp->prev != NULL) {
+        temp->prev->next = temp->next;
+    } else {
+        // Deleting the head node
+        *list_pt = temp->next;
+    }
 
-	templist = malloc(sizeof(Pasien));
-	templist = *list_pt;
+    if (temp->next != NULL) {
+        temp->next->prev = temp->prev;
+    }
 
-	while(templist != NULL){
-		templist->nomor = counter;
-		templist = templist->next;
-		counter++;
-	}
-
-	printf("Data pasien berhasil dihapus!");
+    free(temp);
+    
+    // Renumber the list
+    Pasien* templist = *list_pt;
+    int counter = 1;
+    while (templist != NULL) {
+        templist->nomor = counter;
+        templist = templist->next;
+        counter++;
+    }
 
 	return;
 }
 
-void HapusPasien(Pasien** list_pt){
-	Pasien *templist = *list_pt, *base = *list_pt;
-	int opsi, opsi2 = 0, counter = 0;
-	printf("\nMetode Pencarian:\n1. Nama\n2. ID Pasien\n3. Tampil semuanya\n0. Kembali\nOpsi: ");
-	scanf("%d", &opsi);
-	printf("\n");
-
-	while(templist != NULL){
-		templist = templist->next;
-		counter++;
-	}
-
-
-	while(opsi != 0){
-		opsi2 = 0;
-		templist = malloc(sizeof(Pasien));
-		base = malloc(sizeof(Pasien));
-		templist = *list_pt;
-		base = *list_pt;
-
-		if(opsi == 1){
-			NameSearch(&templist);
-			if(templist != NULL){
-				printf("Yakin ingin dihapus?\n1. Hapus\n0.Batal\nOpsi: ");
-				scanf("%d", &opsi2);
-				printf("\n");	
-				if(opsi2 == 1){			
-					HapusDataPasien(&base, templist);
-					*list_pt = base;
-				}
-			}
-		}
-
-		else if(opsi == 2){
-			IDSearch(&templist);
-			if(templist != NULL){
-				printf("Yakin ingin dihapus?\n1. Hapus\n0.Batal\nOpsi: ");
-				scanf("%d", &opsi2);
-				printf("\n");	
-				if(opsi2 == 1){			
-					HapusDataPasien(&base, templist);
-					*list_pt = base;
-				}
-			}
-		}
-
-		else if(opsi == 3){
-			printPasien(templist);
-			printf("Pilih nomor pasien yang ingin dihapus: ");
-			scanf("%d", &opsi2);
-			printf("\n");
-
-			while(opsi2 < 1 || opsi2 > counter){
-				printf("Opsi tidak ditemukan!\n");
-				printf("Pilih nomor pasien yang ingin dihapus: ");
-				scanf("%d", &opsi2);
-				printf("\n");
-			}
-			
-			templist = malloc(sizeof(Pasien));
-			templist = *list_pt;
-
-			while(templist->nomor != opsi2){
-				templist = templist->next;
-			}
-			HapusDataPasien(&base, templist);
-			*list_pt = base;
-		}
-
-		else{
-			printf("Opsi tidak ditemukan!\n");
-		}
-
-		printf("\nMetode Pencarian:\n1. Nama\n2. ID Pasien\n3. Tampil semuanya\n0. Kembali\nOpsi: ");
-		scanf("%d", &opsi);
-		printf("\n");
-
-	}
-
-	return;
-}
-
-void ManajemenDataPasien(Pasien** list_pt) {
-	Pasien *templist = *list_pt;
-	int opsi;
-
-	printf("\nManajemen Data Pasien:\n1. Tambah data pasien\n2. Cari data pasien\n3. Ubah data pasien\n4. Hapus data pasien\n0. Kembali\nOpsi: ");
-	scanf("%d", &opsi);
-	printf("\n");
-
-	while(opsi != 0){
-
-		if(opsi == 1){
-			TambahPasien(&templist);
-		}
-		else if(opsi == 2){
-			CariPasien(&templist);
-		}
-		else if(opsi == 3){
-			UbahPasien(&templist);
-		}
-		else if(opsi == 4){
-			HapusPasien(&templist);
-		}
-		else{
-			printf("Opsi tidak ditemukan!");
-		}
-
-		printf("\nManajemen Data Pasien:\n1. Tambah data Pasien\n2. Cari data pasien\n3. Ubah data pasien\n4. Hapus data pasien\n0. Kembali\nOpsi: ");
-		scanf("%d", &opsi);
-		printf("\n");
-
-	}
-
-	*list_pt = templist;
-	return;
-}
-
-
-void KonversiKontrol(Date* tanggal_kedatangan){
-    int limithari, tahun, i, nobulan;
-    char bulan[MAX_STRING];
-    char calendar[12][MAX_STRING] = {"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"};
-
-    tahun = tanggal_kedatangan->tahun;
-    strcpy(bulan, tanggal_kedatangan->bulan);
-
-	for(i = 0; i < 12; i++){
-		if(strcmp(bulan, calendar[i]) == 0){
-			nobulan = i;
-		}
-	}
-
-	//nobulan = nomor bulan - 1
-	if(nobulan == 0 || nobulan == 2 || nobulan == 4 || nobulan == 6 || nobulan == 7 || nobulan == 9 || nobulan == 11){
-		limithari = 31;
-	}
-
-    else if(nobulan == 3 || nobulan == 5 || nobulan == 8 || nobulan == 10){
-		limithari == 30;
-	}
-	else if(nobulan == 1 && (tahun % 4) != 0){
-		limithari == 28;
-	}
-	else{
-		limithari == 29;
-	}
-
-	int hari = tanggal_kedatangan->hari + 3;
-
-	if (hari > limithari){
-		hari = hari - limithari;
-		nobulan++;
-	}
-
-	if(nobulan > 11){
-		nobulan = nobulan - 11;
-		tahun++;
-	}
-
-	tanggal_kedatangan->hari = hari;
-	strcpy(tanggal_kedatangan->bulan, calendar[nobulan]);
-	tanggal_kedatangan->tahun = tahun;
-}
-
-void OpsiTindakan(BiayaPengobatan* list_tdk, int* nomortindakan, int* biaya){
+void OpsiTindakan(BiayaPengobatan* list_tdk, int* biaya, char* pilihan){
 	int opsi, biayadaftar, biayaperiksa, biayatotal;
 	BiayaPengobatan *temptdk = list_tdk;
 
-	
 	while(temptdk != NULL){
 			if(strcmp(temptdk->aktivitas, "Pendaftaran") == 0){
 				biayadaftar = temptdk->biaya;
@@ -501,583 +169,186 @@ void OpsiTindakan(BiayaPengobatan* list_tdk, int* nomortindakan, int* biaya){
 			}
 		temptdk = temptdk->next;	
 	}
-
 	temptdk = list_tdk;
-
-	printf("Pilih salah satu tindakan dibawah:\n");
 
 	while(temptdk != NULL){
-		printf("%d. %s ", temptdk->nomor, temptdk->aktivitas, temptdk->biaya);
-
-		if(temptdk->nomor == 1){
-		biayatotal = temptdk->biaya;
-		}
-		else if(temptdk->nomor == 2){
-		biayatotal = biayadaftar + temptdk->biaya;
-		}
-		else{
+		if(strcmp(temptdk->aktivitas, pilihan) == 0){
 		biayatotal = biayadaftar + biayaperiksa + temptdk->biaya;
+		break;
 		}
-
-		printf("(%d)\n", biayatotal);
-
 		temptdk = temptdk->next;
 	}
-
-	printf("Opsi: ");
-	scanf("%d", &opsi);
-	printf("\n");
-	*nomortindakan = opsi;
-
-	temptdk = list_tdk;
-
-	while(temptdk != NULL && temptdk->nomor != opsi){
-		temptdk = temptdk->next;
-	}
-
-
-	while(temptdk == NULL){
-		temptdk = list_tdk;
-		printf("Opsi tidak ditemukan!\n");
-		printf("Pilih salah satu tindakan dibawah:\n");
-		while(temptdk != NULL){
-			printf("%d. %s ", temptdk->nomor, temptdk->aktivitas, temptdk->biaya);
-
-			if(temptdk->nomor == 1){
-			biayatotal = temptdk->biaya;
-			}
-			else if(temptdk->nomor == 2){
-			biayatotal = biayadaftar + temptdk->biaya;
-			}
-			else{
-			biayatotal = biayadaftar + biayaperiksa + temptdk->biaya;
-			}
-
-			printf("(%d)\n", biayatotal);
-
-			temptdk = temptdk->next;
-		}
-		printf("Opsi: ");
-		scanf("%d", &opsi);
-		printf("\n");
-		*nomortindakan = opsi;
-		while(temptdk != NULL && temptdk->nomor != opsi){
-			temptdk = temptdk->next;
-		}
-	}
-
-	if(opsi == 1){
-		*biaya = temptdk->biaya;
-	}			
-	else if(opsi == 2){
-		*biaya = biayadaftar + temptdk->biaya;
-	}
-	else{
-		*biaya = biayadaftar + biayaperiksa + temptdk->biaya;
-	}
+	*biaya = biayatotal;
 	
 	return;
 }
 
-void TambahDiag(Diagnosis** list_diag, BiayaPengobatan* list_tdk){
+void TambahDiag(Diagnosis** list_diag, BiayaPengobatan *list_tdk, char *tanggal_kunjungan, char *id_pasien, char *diagnosis, char *tindakan, int*count_diag){
     Diagnosis *RiwayatBaru = malloc(sizeof(Diagnosis)) , *templist = *list_diag;
-	BiayaPengobatan *temptdk = list_tdk;
-	int biaya, nomor, nomortindakan;
-	char tindakan[MAX_STRING];
-	Date temptanggal;
-
-    printf("Tanggal Kedatangan (dd bulan yyyy): ");
-	scanf("%d %s %d", &temptanggal.hari, temptanggal.bulan, &temptanggal.tahun);
+	Date temptanggal, temptanggalkontrol;
+	int biayaTotal;
+	OpsiTindakan(list_tdk, &biayaTotal, tindakan);
+	assignTanggal(tanggal_kunjungan, &temptanggal);
 	RiwayatBaru->tanggal_cek = temptanggal;
-	KonversiKontrol(&temptanggal);
-	RiwayatBaru->tanggal_kontrol = temptanggal;
-
-	printf("ID Pasien: ");
-	scanf("%*c%[^\n]%*c", RiwayatBaru->id_pasien);
-	printf("Diagnosis: ");
-	scanf("%[^\n]%*c", RiwayatBaru->diagnosis);
-	printf("Tindakan:\n");
-	OpsiTindakan(list_tdk, &nomortindakan, &RiwayatBaru->biaya);
-	while(temptdk != NULL && nomortindakan != temptdk->nomor){
-		temptdk = temptdk->next;
-	}
-	strcpy(RiwayatBaru->tindakan, temptdk->aktivitas);
+	temptanggalkontrol = temptanggal;
+	temptanggalkontrol.hari += 3;
+	RiwayatBaru->tanggal_kontrol = temptanggalkontrol;
+	strcpy(RiwayatBaru->diagnosis, diagnosis);
+	strcpy(RiwayatBaru->tindakan, tindakan);
+	strcpy(RiwayatBaru->id_pasien, id_pasien);
+	RiwayatBaru->biaya = biayaTotal;
 
 	templist = *list_diag;
 	while(templist->next != NULL){
-		
 		templist = templist->next;
 	}
 	RiwayatBaru->nomor = templist->nomor+1;
-
 	templist->next = RiwayatBaru;
 	RiwayatBaru->prev = templist;
 	RiwayatBaru->next = NULL;
-
-	printf("\nData kedatangan berhasil ditambahkan!\n");
-
+	++(*count_diag);
 	return;
 }
 
-void DateSearch(Diagnosis* list_diag, int* count, Date* input){
+Diagnosis* DateSearch(Diagnosis* list_diag, char *tanggal_kunjungan, int*found){
 	Diagnosis *templist = list_diag;
-	Date tanggal;
+	Date tanggal_s;
+	assignTanggal(tanggal_kunjungan, &tanggal_s);
 	int counter = 0;
-
-	printf("Tanggal Kedatangan (dd Bulan yyyy): ");
-	scanf("%d %s %d", &tanggal.hari, tanggal.bulan, &tanggal.tahun);
-	printf("\n");
+	Diagnosis *head_t = NULL;
+	Diagnosis *tail_t = NULL;
 
 	while(templist != NULL){
-		if(tanggal.hari == templist->tanggal_cek.hari && tanggal.tahun == templist->tanggal_cek.tahun && strcmp(tanggal.bulan, templist->tanggal_cek.bulan) == 0){
+		if(tanggal_s.hari == templist->tanggal_cek.hari && tanggal_s.tahun == templist->tanggal_cek.tahun && strcmp(tanggal_s.bulan, templist->tanggal_cek.bulan) == 0){
+			Diagnosis *filtered_date = (Diagnosis*)malloc(sizeof(Diagnosis));
+			filtered_date->tanggal_cek = tanggal_s;
+			filtered_date->tanggal_kontrol = templist->tanggal_kontrol;
+			strcpy(filtered_date->id_pasien, templist->id_pasien);
+			strcpy(filtered_date->diagnosis, templist->diagnosis);
+			strcpy(filtered_date->tindakan, templist->tindakan);
+			filtered_date->nomor = templist->nomor;
+			filtered_date->biaya = templist->biaya;
+			filtered_date->next = NULL;
+			filtered_date->prev = tail_t;
+			if(tail_t){
+				tail_t->next = filtered_date;
+			} else {
+				head_t = filtered_date;
+			}
+			tail_t = filtered_date;
 			counter++;
-			printf("\n(%d)\nTanggal: %d %s %d\nID Pasien: %s\nDiagnosis: %s\nTindakan: %s\nBiaya: %d\n", counter,templist->tanggal_cek.hari, templist->tanggal_cek.bulan, templist->tanggal_cek.tahun, templist->id_pasien, templist->diagnosis, templist->tindakan, templist->biaya);
+		}
+		templist = templist->next;
+	}
+	*found = counter;
+	return head_t;
+}
+
+Diagnosis* DiagIDSearch(Diagnosis* list_diag, char *id_pasien, int*found){
+	Diagnosis *templist = list_diag;
+	int counter = 0;
+	Diagnosis *head_t = NULL;
+	Diagnosis *tail_t = NULL;
+	while(templist != NULL){
+		if(strcmp(id_pasien, templist->id_pasien) == 0){
+			Diagnosis *filtered_date = (Diagnosis*)malloc(sizeof(Diagnosis));
+			filtered_date->tanggal_cek = templist->tanggal_cek;
+			filtered_date->tanggal_kontrol = templist->tanggal_kontrol;
+			strcpy(filtered_date->id_pasien, templist->id_pasien);
+			strcpy(filtered_date->diagnosis, templist->diagnosis);
+			strcpy(filtered_date->tindakan, templist->tindakan);
+			filtered_date->nomor = templist->nomor;
+			filtered_date->biaya = templist->biaya;
+			filtered_date->next = NULL;
+			filtered_date->prev = tail_t;
+			if(tail_t){
+				tail_t->next = filtered_date;
+			} else {
+				head_t = filtered_date;
+			}
+			tail_t = filtered_date;
+			counter++;
 		}
 		templist = templist->next;
 	}
 
-	if(counter == 0){
-		printf("Tidak ada data kedatangan pada tanggal tersebut!");
-	}
-
-	*count = counter;
-
-	return;
-
+	*found = counter;
+	return head_t;
 }
 
-void DiagIDSearch(Diagnosis* list_diag, int* count, char input[MAX_STRING]){
-	Diagnosis *templist = list_diag;
-	char IDPasien[MAX_STRING];
-	int counter = 0;
-
-	printf("ID Pasien: ");
-	scanf("%*c%[^\n]%*c", IDPasien);
-	printf("\n");
-
-	while(templist != NULL){
-		if(strcmp(IDPasien, templist->id_pasien) == 0){
-			counter++;
-			printf("\n(%d)\nTanggal: %d %s %d\nID Pasien: %s\nDiagnosis: %s\nTindakan: %s\nBiaya: %d\n", counter, templist->tanggal_cek.hari, templist->tanggal_cek.bulan, templist->tanggal_cek.tahun, templist->id_pasien, templist->diagnosis, templist->tindakan, templist->biaya);
-		}
-		templist = templist->next;
-	}
-
-	if(counter == 0){
-		printf("Tidak ada data kedatangan dari pasien dengan ID tersebut!");
-	}
-
-	*count = counter;
-	strcpy(input, IDPasien);
-}
-
-void CariDiag(Diagnosis* list_diag){
-	Diagnosis *templist = list_diag;
-	int opsi, ph;
-	Date phd;
-	char phs[MAX_STRING];
-
-	printf("\nMetode Pencarian:\n1. Tanggal kedatangan\n2. ID Pasien\n3. Tunjukkan semua\n0. Kembali\nOpsi: ");
-	scanf("%d", &opsi);
-	printf("\n");
-
-	while(opsi != 0){
-		ph = 0;
-		Diagnosis *templist = list_diag;
-		if(opsi == 1){
-			DateSearch(templist, &ph, &phd);
-		}
-		else if(opsi == 2){
-			DiagIDSearch(templist, &ph, phs);
-		}
-		else if(opsi = 3){
-			printDiagnosis(templist);
-		}
-		else{
-			printf("Opsi tidak ditemukan!\n");
-		}
-		
-
-		printf("\nMetode Pencarian:\n1. Tanggal\n2. ID Pasien\n3. Tunjukkan Semua\n0. Kembali\nOpsi: ");
-		scanf("%d", &opsi);
-		printf("\n");
-
-	}
-	return;
-}
-
-void UbahDataDiag(Diagnosis** list_diag, BiayaPengobatan* list_tdk){
+void UbahDataDiag(Diagnosis** list_diag, BiayaPengobatan* list_tdk, char *input, char *opsi, int pos){
 	Date temptanggal;
 	BiayaPengobatan *temptdk = list_tdk;
-	int opsi, tempint, biaya;
-	char tempstr[MAX_STRING];
+	int biaya;
 
-	printf("Pilih Data yang ingin diubah:\n1. Tanggal kedatangan\n2. ID Pasien\n3. Diagnosis\n4. Tindakan\n0. Kembali\nOpsi: ");
-	scanf("%d", &opsi);
-	printf("\n\n");
-
-	while(opsi != 0){
-		Diagnosis *templist = *list_diag;
-		if(opsi == 1){
-			printf("Tanggal kedatangan (dd bulan yyyy): ");
-			scanf("%d %s %d", &temptanggal.hari, temptanggal.bulan, &temptanggal.tahun);
-			printf("\n\n");
-
-			templist->tanggal_cek = temptanggal;
-
-			KonversiKontrol(&temptanggal);
-			templist->tanggal_kontrol = temptanggal;
-
-			printf("Data berhasil diubah!");
-		}
-		else if(opsi == 2){
-			printf("ID Pasien: ");
-			scanf("%*c%[^\n]%*c", tempstr);
-			printf("\n\n");
-
-			strcpy(templist->id_pasien, tempstr); 
-
-			printf("Data berhasil diubah!");
-		}
-		else if(opsi == 3){
-			printf("Diagnosis: ");
-			scanf("%*c%[^\n]%*c", tempstr);
-			printf("\n\n");
-
-			strcpy(templist->diagnosis, tempstr); 
-
-			printf("Data berhasil diubah!");
-
-		}
-		else if(opsi == 4){
-			printf("Tindakan:\n");
-			OpsiTindakan(list_tdk, &tempint, &biaya);
-			templist->biaya = biaya;
-
-			while(temptdk->nomor != tempint){
-				temptdk = temptdk->next;
-			}
-
-			strcpy(templist->tindakan, temptdk->aktivitas);
-
-			printf("Data berhasil diubah!");
-
-		}
-		else{
-			printf("Opsi tidak ditemukan!\n");
-		}
-
-		printf("\nTanggal: %d %s %d\nID Pasien: %s\nDiagnosis: %s\nTindakan: %s\nBiaya: %d\n", templist->tanggal_cek.hari, templist->tanggal_cek.bulan, templist->tanggal_cek.tahun, templist->id_pasien, templist->diagnosis, templist->tindakan, templist->biaya);
-
-		*list_diag = templist;
-
-		printf("Pilih Data yang ingin diubah:\n1. Tanggal kedatangan\n2. ID Pasien\n3. Diagnosis\n4. Tindakan\n0. Kembali\nOpsi: ");
-		scanf("%d", &opsi);
-		printf("\n\n");
-	}
-
-	return;
-}
-
-void UbahDiag(Diagnosis** list_diag, BiayaPengobatan* list_tdk){
 	Diagnosis *templist = *list_diag;
-	Date dateinput;
-	char idinput[MAX_STRING];
-	int opsi, count, subopsi;
-
-	printf("\nMetode Pencarian:\n1. Tanggal kedatangan\n2. ID Pasien\n3. Tunjukkan semua\n0. Kembali\nOpsi: ");
-	scanf("%d", &opsi);
-	printf("\n");
-
-	while(opsi != 0){
-		Diagnosis *templist = *list_diag;
-		count = 0;
-		if(opsi == 1){
-			DateSearch(templist, &count, &dateinput);
-			if(count != 0){	
-
-				printf("Pilih nomor data yang ingin diubah: ");
-				scanf("%d", &subopsi);
-				printf("\n");
-				
-				while(subopsi > count || subopsi < 1){
-					if(subopsi > count || subopsi < 1){
-						printf("Opsi tidak ditemukan!\n");
-					}
-					printf("Pilih nomor data yang ingin diubah: ");
-					scanf("%d", &subopsi);
-					printf("\n");
-				}
-				
-				count = 0;
-
-				while(count != subopsi){
-					if(templist->tanggal_cek.hari == dateinput.hari && templist->tanggal_cek.tahun == dateinput.tahun && strcmp(templist->tanggal_cek.bulan, dateinput.bulan) == 0){
-						count++;
-					}
-					templist = templist->next;
-				}
-				UbahDataDiag(&templist, list_tdk);
-			}
+	while(templist != NULL){
+		if(templist->nomor == pos){
+			break;
 		}
-
-		else if(opsi == 2){
-			DiagIDSearch(templist, &count, idinput);
-			if(count != 0){	
-
-				printf("Pilih nomor data yang ingin diubah: ");
-				scanf("%d", &subopsi);
-				printf("\n");
-
-				while(subopsi > count || subopsi < 1){
-					if(subopsi > count || subopsi < 1){
-						printf("Opsi tidak ditemukan!\n");
-					}
-					printf("Pilih nomor data yang ingin diubah: ");
-					scanf("%d", &subopsi);
-					printf("\n");
-				}
-
-				count = 0;
-				while(count != subopsi){
-					
-					if(strcmp(templist->id_pasien, idinput) == 0){
-						count++;
-					}
-					templist = templist->next;
-				}
-				UbahDataDiag(&templist, list_tdk);
-			}
-		}
-
-		else if(opsi = 3){
-			printDiagnosis(templist);
-
-			while(templist != NULL){
-				templist = templist->next;
-				count++;
-			}
-
-			printf("Pilih nomor data yang ingin diubah: ");
-			scanf("%d", &subopsi);
-			printf("\n");			
-			
-			templist = *list_diag;
-
-			while(subopsi > count || subopsi < 1){
-				printf("Opsi tidak ditemukan!\n");
-				printf("Pilih nomor data yang ingin diubah: ");
-				scanf("%d", &subopsi);
-				printf("\n");
-			}
-			
-			count = 1;
-
-			while(count != subopsi){
-			    count++;
-				templist = templist->next;
-			}
-			UbahDataDiag(&templist, list_tdk);
-		}
-
-		else{
-			printf("Opsi tidak ditemukan!\n");
-		}
-
-		printf("\nMetode Pencarian:\n1. Tanggal\n2. ID Pasien\n3. Tunjukkan Semua\n0. Kembali\nOpsi: ");
-		scanf("%d", &opsi);
-		printf("\n");
-
-	}
-	return;
-}
-
-void HapusDataDiag(Diagnosis** list_diag, Diagnosis* target){
-	Diagnosis *templist = *list_diag;
-	int counter = 1;
-	if(target->next == NULL){
-		while(templist->next->next != NULL){
-			templist = templist->next;
-		}
-		templist->next = NULL;
-	}
-	else if(target->prev == NULL){
 		templist = templist->next;
-		templist->prev = NULL;
-		*list_diag = templist;
+	}
+	if(strcmp(opsi, "Tanggal Kunjungan") == 0){
+		assignTanggal(input, &temptanggal);
+		templist->tanggal_cek = temptanggal;
+		temptanggal.hari += 3;
+		templist->tanggal_kontrol = temptanggal;
+		printf("Data berhasil diubah!");
+	}
+	else if(strcmp(opsi, "ID Pasien") == 0){
+		strcpy(templist->id_pasien, input); 
+		printf("Data berhasil diubah!");
+	}
+	else if(strcmp(opsi, "Diagnosis") == 0){
+		strcpy(templist->diagnosis, input); 
+		printf("Data berhasil diubah!");
+	}
+	else if(strcmp(opsi, "Tindakan") == 0){
+		strcpy(templist->tindakan, input);
+		OpsiTindakan(list_tdk, &biaya, input);
+		templist->biaya = biaya;
+		printf("Data berhasil diubah!");
 	}
 	else{
-		while(templist->next != target){
-			templist = templist->next;
-		}
-		templist->next->next->prev = templist;
-		templist->next = templist->next->next;
+		printf("Opsi tidak ditemukan!\n");
 	}
-
-	templist = malloc(sizeof(Diagnosis));
-	templist = *list_diag;
-
-	while(templist != NULL){
-		templist->nomor = counter;
-		templist = templist->next;
-		counter++;
-	}
-
-	printf("Data kedatangan berhasil dihapus!");
-
 	return;
 }
 
-void HapusDiag(Diagnosis** list_diag){
+void HapusDataDiag(Diagnosis** list_dt, int num){
+	Diagnosis *temp = *list_dt;
+	if (temp== NULL) {
+        return;
+    }
 
-	Diagnosis *templist = *list_diag, *base = *list_diag;
-	Date dateinput;
-	char idinput[MAX_STRING];
-	int opsi, count, subopsi;
-
-	printf("\nMetode Pencarian:\n1. Tanggal kedatangan\n2. ID Pasien\n3. Tunjukkan semua\n0. Kembali\nOpsi: ");
-	scanf("%d", &opsi);
-	printf("\n");
-
-	while(opsi != 0){
-		Diagnosis *templist = *list_diag, *base = *list_diag;
-		count = 0;
-		if(opsi == 1){
-			DateSearch(templist, &count, &dateinput);
-			if(count != 0){	
-
-				printf("Pilih nomor data yang ingin dihapus: ");
-				scanf("%d", &subopsi);
-				printf("\n");
-				
-
-				while(subopsi > count || subopsi < 1){
-					if(subopsi > count || subopsi < 1){
-						printf("Opsi tidak ditemukan!\n");
-					}
-					printf("Pilih nomor data yang ingin dihapus: ");
-					scanf("%d", &subopsi);
-					printf("\n");
-				}
-				
-				count = 0;
-
-				while(count != subopsi){
-					if(templist->tanggal_cek.hari == dateinput.hari && templist->tanggal_cek.tahun == dateinput.tahun && strcmp(templist->tanggal_cek.bulan, dateinput.bulan) == 0){
-						count++;
-					}
-					templist = templist->next;
-				}
-				HapusDataDiag(&base, templist);
-				*list_diag = base;
-			}
+	while((temp) != NULL){
+		if(temp->nomor == num){
+			break;
 		}
-
-		else if(opsi == 2){
-			DiagIDSearch(templist, &count, idinput);
-			if(count != 0){	
-
-				printf("Pilih nomor data yang ingin dihapus: ");
-				scanf("%d", &subopsi);
-				printf("\n");
-
-				while(subopsi > count || subopsi < 1){
-					if(subopsi > count || subopsi < 1){
-						printf("Opsi tidak ditemukan!\n");
-					}
-					printf("Pilih nomor data yang ingin dihapus: ");
-					scanf("%d", &subopsi);
-					printf("\n");
-				}
-
-				count = 0;
-				while(count != subopsi){
-					
-					if(strcmp(templist->id_pasien, idinput) == 0){
-						count++;
-					}
-					templist = templist->next;
-				}
-				HapusDataDiag(&base, templist);
-				*list_diag = base;
-			}
-		}
-
-		else if(opsi = 3){
-			printDiagnosis(templist);
-
-			while(templist != NULL){
-				templist = templist->next;
-				count++;
-			}
-
-			printf("Pilih nomor data yang ingin dihapus: ");
-			scanf("%d", &subopsi);
-			printf("\n");			
-			
-			templist = *list_diag;
-
-			while(subopsi > count || subopsi < 1){
-				printf("Opsi tidak ditemukan!\n");
-				printf("Pilih nomor data yang ingin dihapus: ");
-				scanf("%d", &subopsi);
-				printf("\n");
-			}
-			
-			count = 1;
-
-			while(count != subopsi){
-			    count++;
-				templist = templist->next;
-			}
-			HapusDataDiag(&base, templist);
-			*list_diag = base;
-		}
-		else{
-			printf("Opsi tidak ditemukan!\n");
-		}
-
-		printf("\nMetode Pencarian:\n1. Tanggal\n2. ID Pasien\n3. Tunjukkan Semua\n0. Kembali\nOpsi: ");
-		scanf("%d", &opsi);
-		printf("\n");
-
+		temp = temp->next;
 	}
-	return;
-	
-}
+    
+	if (temp->prev != NULL) {
+        temp->prev->next = temp->next;
+    } else {
+        // Deleting the head node
+        *list_dt = temp->next;
+    }
 
-void ManajemenDataDiag(Diagnosis** list_diag, BiayaPengobatan* list_tdk) {
-	Diagnosis *templist = *list_diag;
-	int opsi;
+    if (temp->next != NULL) {
+        temp->next->prev = temp->prev;
+    }
 
-	printf("\nManajemen Riwayat Kedatangan:\n1. Tambah riwayat kedatangan\n2. Cari riwayat kedatangan\n3. Ubah data riwayat kedatangan\n4. Hapus riwayat kedatangan\n0. Kembali\nOpsi: ");
-	scanf("%d", &opsi);
-	printf("\n");
+    free(temp);
+    
+    // Renumber the list
+    Diagnosis* templist = *list_dt;
+    int counter = 1;
+    while (templist != NULL) {
+        templist->nomor = counter;
+        templist = templist->next;
+        counter++;
+    }
 
-	while(opsi != 0){
-
-		if(opsi == 1){
-			TambahDiag(&templist, list_tdk);
-		}
-		else if(opsi == 2){
-			CariDiag(templist);
-		}
-		else if(opsi == 3){
-			UbahDiag(&templist, list_tdk);
-		}
-        else if(opsi == 4){
-            HapusDiag(&templist);
-        }
-		else{
-			printf("Opsi tidak ditemukan!");
-		}
-
-		printf("\nManajemen Riwayat Kedatangan:\n1. Tambah riwayat kedatangan\n2. Cari riwayat kedatangan\n3. Ubah data riwayat kedatangan\n4. Hapus riwayat kedatangan\n0. Kembali\nOpsi: ");
-		scanf("%d", &opsi);
-		printf("\n");
-
-	}
-
-	*list_diag = templist;
 	return;
 }

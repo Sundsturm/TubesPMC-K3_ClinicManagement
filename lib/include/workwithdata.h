@@ -48,5 +48,9 @@ void readBiayaPengobatanData(const char* filename, BiayaPengobatan **list_biaya)
 void printPasien(Pasien *list_pt);
 void printDiagnosis(Diagnosis *list_dx);
 void printBiayaPengobatan(BiayaPengobatan *list_biaya);
+void countLenPasien(Pasien *list_pt, int *a);
+void countLenDiagnosis(Diagnosis *list_dt, int *a);
+void free_pasien_list(Pasien* head);
+void free_diagnosis_list(Diagnosis* head);
 
 #endif

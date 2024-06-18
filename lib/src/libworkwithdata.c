@@ -1,7 +1,7 @@
 #include "../include/standardclib.h"
 #include "../include/workwithdata.h"
 
-/* Prosedur untuk meng-assign tanggal, bulan, dan tahun ke */
+/* Prosedur untuk meng-assign tanggal, bulan, dan tahun ke struct tanggal*/
 void assignTanggal(char *str_t, Date* tanggal_t) {
 	char *saveptr;
 	char *temp_string;
@@ -18,7 +18,7 @@ void assignTanggal(char *str_t, Date* tanggal_t) {
 	temp_string = strtok_r(NULL, " ", &saveptr);
 	tanggal_t->tahun = atoi(temp_string);
 }
- 
+
 /* Prosedur untuk membaca CSV yang menyimpan data pasien */
 void readPasienData(const char* filename, Pasien **list_px) {
     FILE* file = fopen(filename, "r");
@@ -169,6 +169,49 @@ void printBiayaPengobatan(BiayaPengobatan *list_biaya){
 	}
 	while(temp != NULL){
 		printf("%d, %s, %d\n", temp->nomor, temp->aktivitas, temp->biaya);
+		temp = temp->next;
 	}
 	printf("\n");
+}
+
+void countLenPasien(Pasien *list_pt, int *a){
+    Pasien *temp = list_pt;
+	if (temp == NULL){
+		printf("Data kosong!\n");
+		return;
+	}
+	while(temp != NULL){
+        temp = temp->next;
+        (*a) = (*a) + 1;
+    }
+}
+
+void countLenDiagnosis(Diagnosis *list_dt, int *a){
+    Diagnosis *temp = list_dt;
+	if (temp == NULL){
+		printf("Data kosong!\n");
+		return;
+	}
+	while(temp != NULL){
+        temp = temp->next;
+        (*a) = (*a) + 1;
+    }
+}
+
+void free_pasien_list(Pasien* head) {
+    Pasien* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
+
+void free_diagnosis_list(Diagnosis* head) {
+    Diagnosis* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
 }

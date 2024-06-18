@@ -2,7 +2,6 @@
 #define __PETUGASMEDIS_H_
 #include "workwithdata.h"
 Pasien* cariPasienByID(Pasien* head, const char* id_pasien);
-void informasiPasienRiwayatMedis(Pasien* headPasien, Diagnosis* headDiagnosis);
-void printPasienForKontrol(Diagnosis* head, Date kontrolDate);
-void PasienForKontrol(Pasien* pasienHead, Diagnosis* diagnosisHead);
+char* informasiPasienRiwayatMedis(Pasien* headPasien, const char *id_pasien);
+Diagnosis* PasienForKontrol(Diagnosis* head, char *tanggal_k, int *counter);
 #endif

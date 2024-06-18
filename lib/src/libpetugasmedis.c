@@ -13,73 +13,62 @@ Pasien* cariPasienByID(Pasien* head, const char* id_pasien) {
     return NULL; // Jika tidak ditemukan
 }
 
-void informasiPasienRiwayatMedis(Pasien* headPasien, Diagnosis* headDiagnosis) {
-    char id_pasien[MAX_STRING];
-    printf("Masukkan ID Pasien: ");
-    gets(id_pasien);
+char* informasiPasienRiwayatMedis(Pasien* headPasien, const char *id_pasien) {
+    char *message = (char*)malloc(MAX_STRING*sizeof(char));
     Pasien* pasien = cariPasienByID(headPasien, id_pasien);
     if (pasien == NULL) {
-        printf("Pasien dengan ID %s tidak ditemukan.\n", id_pasien);
-        return;
+        snprintf(message, MAX_STRING, "Pasien dengan ID %s tidak ditemukan.\n", id_pasien);
+    } else {
+        snprintf(message, MAX_STRING, "Informasi Pasien:\nNomor: %d\nNama Lengkap: %s\nAlamat: %s\nKota: %s\nTempat Lahir: %s\nTanggal Lahir: %d %s %d\nUmur: %d\nBPJS: %s\nID Pasien: %s\n\n",
+                                    pasien->nomor,
+                                    pasien->nama_lengkap,
+                                    pasien->alamat,
+                                    pasien->kota,
+                                    pasien->tempat_lahir,
+                                    pasien->tanggal_lahir.hari,
+                                    pasien->tanggal_lahir.bulan,
+                                    pasien->tanggal_lahir.tahun,
+                                    pasien->umur,
+                                    pasien->bpjs,
+                                    pasien->id_pasien);
     }
-
-    printf("Informasi Pasien:\n");
-    printf("Nomor: %d\n", pasien->nomor);
-    printf("Nama Lengkap: %s\n", pasien->nama_lengkap);
-    printf("Alamat: %s\n", pasien->alamat);
-    printf("Kota: %s\n", pasien->kota);
-    printf("Tempat Lahir: %s\n", pasien->tempat_lahir);
-    printf("Tanggal Lahir: %d %s %d\n", pasien->tanggal_lahir.hari, pasien->tanggal_lahir.bulan, pasien->tanggal_lahir.tahun);
-    printf("Umur: %d\n", pasien->umur);
-    printf("BPJS: %s\n", pasien->bpjs);
-    printf("ID Pasien: %s\n\n", pasien->id_pasien);
-
-    printf("Riwayat Medis:\n");
-    Diagnosis* tempDiagnosis = headDiagnosis;
-    while (tempDiagnosis) {
-        if (strcmp(tempDiagnosis->id_pasien, id_pasien) == 0) {
-            printf("Nomor: %d\n", tempDiagnosis->nomor);
-            printf("Tanggal Cek: %d %s %d\n", tempDiagnosis->tanggal_cek.hari, tempDiagnosis->tanggal_cek.bulan, tempDiagnosis->tanggal_cek.tahun);
-            printf("Diagnosis: %s\n", tempDiagnosis->diagnosis);
-            printf("Tindakan: %s\n", tempDiagnosis->tindakan);
-            printf("Tanggal Kontrol: %d %s %d\n", tempDiagnosis->tanggal_kontrol.hari, tempDiagnosis->tanggal_kontrol.bulan, tempDiagnosis->tanggal_kontrol.tahun);
-            printf("Biaya: %d\n\n", tempDiagnosis->biaya);
-        }
-        tempDiagnosis = tempDiagnosis->next;
-    }
+    return message;
 }
 
-void printPasienForKontrol(Diagnosis* head, Date kontrolDate) {
+Diagnosis* PasienForKontrol(Diagnosis* head, char *tanggal_k, int *count) {
     Diagnosis* temp = head;
-    int found = 0;
-    while (temp) {
-        if (temp->tanggal_kontrol.hari == kontrolDate.hari &&
-            strcmp(temp->tanggal_kontrol.bulan, kontrolDate.bulan) == 0 &&
-            temp->tanggal_kontrol.tahun == kontrolDate.tahun) {
-            printf("Nomor: %d\n", temp->nomor);
-            printf("Tanggal Cek: %d %s %d\n", temp->tanggal_cek.hari, temp->tanggal_cek.bulan, temp->tanggal_cek.tahun);
-            printf("ID Pasien: %s\n", temp->id_pasien);
-            printf("Diagnosis: %s\n", temp->diagnosis);
-            printf("Tindakan: %s\n", temp->tindakan);
-            printf("Biaya: %d\n\n", temp->biaya);
-            found = 1;
+    Date temptanggal;
+    assignTanggal(tanggal_k, &temptanggal);
+    int counter = 0;
+	Diagnosis *head_t = NULL;
+	Diagnosis *tail_t = NULL;
+    while (temp != NULL) {
+        if (temp->tanggal_kontrol.hari == temptanggal.hari &&
+            strcmp(temp->tanggal_kontrol.bulan, temptanggal.bulan) == 0 &&
+            temp->tanggal_kontrol.tahun == temptanggal.tahun) {
+                Diagnosis *filtered_date = (Diagnosis*)malloc(sizeof(Diagnosis));
+                filtered_date->tanggal_cek = temp->tanggal_cek;
+                filtered_date->tanggal_kontrol = temp->tanggal_kontrol;
+                strcpy(filtered_date->id_pasien, temp->id_pasien);
+                strcpy(filtered_date->diagnosis, temp->diagnosis);
+                strcpy(filtered_date->tindakan, temp->tindakan);
+                filtered_date->nomor = temp->nomor;
+                filtered_date->biaya = temp->biaya;
+                filtered_date->next = NULL;
+                filtered_date->prev = tail_t;
+                if(tail_t){
+                    tail_t->next = filtered_date;
+                } else {
+                    head_t = filtered_date;
+                }
+                tail_t = filtered_date;
+                counter++;
         }
         temp = temp->next;
     }
-    if (!found) {
+    if (counter == 0) {
         printf("Tidak ada pasien yang perlu kontrol pada tanggal tersebut.\n");
     }
-}
-
-void PasienForKontrol(Pasien* pasienHead, Diagnosis* diagnosisHead){
-// Example usage of the new function
-    char dateStr[MAX_STRING];
-    printf("Masukkan tanggal kontrol yang diinginkan (format: DD MMM YYYY): ");
-    fgets(dateStr, sizeof(dateStr), stdin);
-    dateStr[strcspn(dateStr, "\n")] = '\0'; // Remove trailing newline
-
-    Date kontrolDate;
-    assignTanggal(dateStr, &kontrolDate);
-    printf("Pasien yang perlu kontrol pada tanggal %d %s %d:\n", kontrolDate.hari, kontrolDate.bulan, kontrolDate.tahun);
-    printPasienForKontrol(diagnosisHead, kontrolDate);
+    *count = counter;
+    return head_t;
 }
